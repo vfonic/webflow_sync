@@ -17,28 +17,29 @@ module WebflowSync
                       })
     end
 
-    let!(:article) { create(:article) }
-
     before(:each) do
-      allow(Webflow::Client).to receive(:new).and_return(webflow_mock_client)
+      allow(::Webflow::Client).to receive(:new).and_return(webflow_mock_client)
     end
 
-    xit 'assigns webflow item id to record' do
-      WebflowSync::InitialSyncJob.perform_now(municipality.id)
+    it 'assigns webflow_item_id to record' do
+      article = create(:article)
 
-      article.reload
-      expect(article.webflow_item_id).to eq('mock_item_id')
+      WebflowSync::InitialSyncJob.perform_now('articles')
+
+      expect(article.reload.webflow_item_id).to eq('mock_item_id')
     end
 
-    xcontext 'when collection does not exist' do
+    context 'when collection does not exist' do
       let(:webflow_mock_client) do
         instance_double('webflow_mock_client', collections: [])
       end
 
       it 'raises an error when it cannot find a webflow collection' do
+        create(:article)
+
         expect do
-          WebflowSync::InitialSyncJob.perform_now(municipality.id)
-        end.to raise_error('Cannot find collection articles for Webflow site ')
+          WebflowSync::InitialSyncJob.perform_now('articles')
+        end.to raise_error('Cannot find collection articles for Webflow site webflow_site_id')
       end
     end
   end

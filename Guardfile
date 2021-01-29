@@ -1,30 +1,19 @@
-# A sample Guardfile
-# More info at https://github.com/guard/guard#readme
 
-## Uncomment and set this to only include directories you want to watch
-# directories %w(app lib config test spec features) \
-#  .select{|d| Dir.exist?(d) ? d : UI.warning("Directory #{d} does not exist")}
+rspec_options = {
+  results_file: File.expand_path('tmp/guard_rspec_results.txt'),
+  #############################
+  # BECAUSE spring doesn't seem to work well with simplecov, choose
+  # between the following two.
+  # slow but good coverage
+  # cmd: "bin/rspec -p",
+  # fast but no coverage
+  cmd: 'bundle exec rspec -p',
+  #############################
+  failed_mode: :focus,
+  bundler_env: :clean_env,
+}
 
-## Note: if you are using the `directories` clause above and you are not
-## watching the project directory ('.'), then you will want to move
-## the Guardfile to a watched dir and symlink it back, e.g.
-#
-#  $ mkdir config
-#  $ mv Guardfile config/
-#  $ ln -s config/Guardfile .
-#
-# and, you'll have to watch "config/Guardfile" instead of "Guardfile"
-
-# Note: The cmd option is now required due to the increasing number of ways
-#       rspec may be run, below are examples of the most common uses.
-#  * bundler: 'bundle exec rspec'
-#  * bundler binstubs: 'bin/rspec'
-#  * spring: 'bin/rspec' (This will use spring if running and you have
-#                          installed the spring binstubs per the docs)
-#  * zeus: 'zeus rspec' (requires the server to be started separately)
-#  * 'just' rspec: 'rspec'
-
-guard :rspec, cmd: "bundle exec rspec" do
+guard :rspec, rspec_options do
   require "guard/rspec/dsl"
   dsl = Guard::RSpec::Dsl.new(self)
 
