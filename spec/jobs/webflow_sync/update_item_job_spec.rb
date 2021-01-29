@@ -21,6 +21,18 @@ module WebflowSync
     end
 
     context 'when webflow_site_id is nil' do
+      before(:each) do
+        WebflowSync.configure do |config|
+          config.webflow_site_id = nil
+        end
+      end
+
+      after(:each) do
+        WebflowSync.configure do |config|
+          config.webflow_site_id = 'webflow_site_id'
+        end
+      end
+
       it 'does not sync' do
         allow(WebflowSync::Api).to receive(:new).and_return(mock_webflow_api)
 
