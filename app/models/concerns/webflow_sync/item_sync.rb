@@ -8,6 +8,7 @@ module WebflowSync
     included do
       include WebflowSync::Callbacks
 
+      # override this method to get more granular, per site customization
       def webflow_site_id
         WebflowSync.configuration.webflow_site_id
       end
