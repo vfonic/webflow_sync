@@ -1,10 +1,13 @@
-# WebflowSync
-Short description and motivation.
+![build](https://github.com/vfonic/webflow_sync/workflows/build/badge.svg)
 
-## Usage
-How to use my plugin.
+# WebflowSync
+
+Keep your Ruby on Rails records in sync with WebFlow.*
+
+*Currently only one way Rails => WebFlow synchronization works
 
 ## Installation
+
 Add this line to your application's Gemfile:
 
 ```ruby
@@ -12,17 +15,19 @@ gem 'webflow_sync'
 ```
 
 And then execute:
+
 ```bash
 $ bundle
 ```
 
-Or install it yourself as:
-```bash
-$ gem install webflow_sync
-```
+## Usage
+
+
 
 ## Contributing
-Contribution directions go here.
+
+PRs welcome!
 
 ## License
+
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).

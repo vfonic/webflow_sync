@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     webflow_sync (0.1.0)
-      rails (~> 5.0)
+      rails (>= 5.0)
       webflow-ruby
 
 GEM
