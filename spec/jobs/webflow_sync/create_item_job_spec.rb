@@ -28,6 +28,7 @@ module WebflowSync
           config.webflow_site_id = nil
         end
       end
+
       after(:each) do
         WebflowSync.configure do |config|
           config.webflow_site_id = 'webflow_site_id'

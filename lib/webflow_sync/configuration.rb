@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module WebflowSync
   class << self
     attr_reader :configuration
@@ -9,14 +11,11 @@ module WebflowSync
 
     private
 
-      def configuration=(value)
-        @configuration = value
-      end
+      attr_writer :configuration
   end
 
   class Configuration
-    attr_accessor :skip_webflow_sync
-    attr_accessor :webflow_site_id
+    attr_accessor :skip_webflow_sync, :webflow_site_id
 
     def initialize
       @skip_webflow_sync = Rails.env.test?

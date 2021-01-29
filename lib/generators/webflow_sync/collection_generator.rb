@@ -1,15 +1,18 @@
+# frozen_string_literal: true
+
 require 'rails/generators/active_record'
 
 module WebflowSync
   module Generators
     class CollectionGenerator < Rails::Generators::NamedBase
-      desc "Registers ActiveRecord model to sync to WebFlow collection"
+      desc 'Registers ActiveRecord model to sync to WebFlow collection'
 
       source_root File.expand_path('templates', __dir__)
 
       include Rails::Generators::Migration
       def add_migration
-        migration_template "migration.rb.erb", "#{migration_path}/add_webflow_item_id_to_#{table_name}.rb", migration_version: migration_version
+        migration_template 'migration.rb.erb', "#{migration_path}/add_webflow_item_id_to_#{table_name}.rb",
+                           migration_version: migration_version
       end
 
       def include_item_sync_in_model_file

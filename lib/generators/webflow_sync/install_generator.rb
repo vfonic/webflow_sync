@@ -6,7 +6,7 @@ module WebflowSync
       source_root File.expand_path('templates', __dir__)
 
       def add_config_initializer
-        template "webflow_sync.rb", "config/initializers/webflow_sync.rb"
+        template 'webflow_sync.rb', 'config/initializers/webflow_sync.rb'
       end
     end
   end
