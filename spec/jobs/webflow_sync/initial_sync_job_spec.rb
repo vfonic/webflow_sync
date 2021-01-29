@@ -23,14 +23,14 @@ module WebflowSync
       allow(Webflow::Client).to receive(:new).and_return(webflow_mock_client)
     end
 
-    it 'assigns webflow item id to record' do
+    xit 'assigns webflow item id to record' do
       WebflowSync::InitialSyncJob.perform_now(municipality.id)
 
       article.reload
       expect(article.webflow_item_id).to eq('mock_item_id')
     end
 
-    context 'when collection does not exist' do
+    xcontext 'when collection does not exist' do
       let(:webflow_mock_client) do
         instance_double('webflow_mock_client', collections: [])
       end
