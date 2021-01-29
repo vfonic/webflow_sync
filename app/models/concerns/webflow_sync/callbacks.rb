@@ -13,19 +13,19 @@ module WebflowSync
       after_destroy :destroy_webflow_item
 
       def create_webflow_item
-        return if self.skip_webflow_sync || ActiveModel::Type::Boolean.new.cast(ENV['SKIP_WEBFLOW_SYNC'])
+        return if self.skip_webflow_sync || WebflowSync.configuration.skip_webflow_sync
 
         WebflowSync::CreateItemJob.perform_later(self.model_name.collection, self.id)
       end
 
       def update_webflow_item
-        return if self.skip_webflow_sync || ActiveModel::Type::Boolean.new.cast(ENV['SKIP_WEBFLOW_SYNC'])
+        return if self.skip_webflow_sync || WebflowSync.configuration.skip_webflow_sync
 
         WebflowSync::UpdateItemJob.perform_later(self.model_name.collection, self.id)
       end
 
       def destroy_webflow_item
-        return if self.skip_webflow_sync || ActiveModel::Type::Boolean.new.cast(ENV['SKIP_WEBFLOW_SYNC'])
+        return if self.skip_webflow_sync || WebflowSync.configuration.skip_webflow_sync
 
         WebflowSync::DestroyItemJob.perform_later(collection_slug: self.model_name.collection,
                                                   webflow_site_id: self.webflow_site_id,
