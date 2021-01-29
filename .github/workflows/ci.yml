@@ -1,0 +1,37 @@
+name: CI build
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+
+    services:
+      db:
+        image: postgres:12
+        ports: ['5432:5432']
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.7.2
+
+      - name: Setup gems
+        run: |
+          sudo apt-get -yqq install libpq-dev
+          gem install bundler
+          bundle install --jobs 4 --retry 3
+
+      - name: Setup database
+        run: |
+          bundle exec rails db:create db:schema:load
+        env:
+          PGHOST: 127.0.0.1
+          PGUSER: postgres
+          RAILS_ENV: test
+
+      - name: Run tests
+        run: bundle exec rspec
