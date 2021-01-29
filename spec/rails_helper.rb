@@ -8,6 +8,7 @@ require 'rspec/rails'
 
 # require 'database_cleaner'
 require 'factory_bot_rails'
+require 'pry-rails'
 # require 'super_diff/rspec-rails'
 
 begin
