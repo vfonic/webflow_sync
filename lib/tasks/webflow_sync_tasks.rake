@@ -1,4 +1,8 @@
-# desc "Explaining what the task does"
-# task :webflow_sync do
-#   # Task goes here
-# end
+# frozen_string_literal: true
+
+namespace :webflow_sync do
+  desc 'Perform initial sync from Rails to WebFlow'
+  task :initial_sync, collection_slug: :environment do |_task, args|
+    WebflowSync::InitialSyncJob.perform_later(args[:collection_slug])
+  end
+end
