@@ -1,0 +1,6 @@
+class AddWebflowItemIdTo<%= table_name.camelize %> < ActiveRecord::Migration<%= migration_version %>
+  def change
+    add_column :<%= table_name %>, :webflow_item_id, :string
+    add_index :<%= table_name %>, :webflow_item_id, unique: true
+  end
+end
