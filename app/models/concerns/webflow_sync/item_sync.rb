@@ -28,7 +28,7 @@ module WebflowSync
         return if self.skip_webflow_sync || ActiveModel::Type::Boolean.new.cast(ENV['SKIP_WEBFLOW_SYNC'])
 
         WebflowSync::DestroyItemJob.perform_later(collection_slug: self.to_collection_slug,
-                                                  webflow_site_id: self.municipality.webflow_site_id,
+                                                  webflow_site_id: self.webflow_site_id,
                                                   webflow_item_id: self.webflow_item_id)
       end
     end
