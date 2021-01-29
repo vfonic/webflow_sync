@@ -69,6 +69,10 @@ bundle exec rails "webflow_sync:initial_sync[articles]"
 
 *Quotes are needed in order for this to work in all shells.
 
+### Important note
+
+This gem silently "fails" (does nothing) when `webflow_site_id` or `webflow_item_id` is `nil`! This is not always desired behavior so be aware of that.
+
 ## Contributing
 
 PRs welcome!
