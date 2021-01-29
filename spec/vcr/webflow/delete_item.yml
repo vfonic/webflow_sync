@@ -1,0 +1,136 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.webflow.com/sites/webflow_site_id/collections
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <WEBFLOW_API_TOKEN>
+      Accept-Version:
+      - 1.0.0
+      Connection:
+      - close
+      Host:
+      - api.webflow.com
+      User-Agent:
+      - http.rb/4.4.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 28 Jan 2021 17:40:47 GMT
+      Etag:
+      - W/"O5WggQZDm+J7uUXdpmZGJg=="
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '59'
+      X-Response-Time:
+      - 167.847ms
+      X-Wf-Rid:
+      - 43ab0ac4-9266-4225-83d7-38be594574c8
+      Content-Length:
+      - '1735'
+      Connection:
+      - Close
+    body:
+      encoding: UTF-8
+      string: '[{"_id":"601049c19338214819291922","lastUpdated":"2021-01-26T16:56:39.839Z","createdOn":"2021-01-11T23:24:29.591Z","name":"Articles","slug":"articles","singularName":"Article"},{"_id":"601049c19338215de7291945","lastUpdated":"2021-01-26T16:56:39.946Z","createdOn":"2021-01-12T12:38:39.095Z","name":"Documents","slug":"documents","singularName":"Document"},{"_id":"601049c19338211a6d29195b","lastUpdated":"2021-01-26T16:56:40.043Z","createdOn":"2021-01-11T23:28:29.566Z","name":"Entities","slug":"entities","singularName":"Entity"},{"_id":"601049c193382173b229196f","lastUpdated":"2021-01-26T16:56:40.082Z","createdOn":"2021-01-12T01:50:06.685Z","name":"Events","slug":"event","singularName":"Event"},{"_id":"601049c1933821139d291983","lastUpdated":"2021-01-26T16:56:40.157Z","createdOn":"2021-01-14T16:55:35.029Z","name":"FAQs","slug":"faqs","singularName":"FAQ"},{"_id":"601049c1933821e855291997","lastUpdated":"2021-01-26T16:56:40.232Z","createdOn":"2021-01-22T20:05:10.724Z","name":"Forms","slug":"forms","singularName":"Form"},{"_id":"601049c1933821612e2919a6","lastUpdated":"2021-01-26T16:56:40.267Z","createdOn":"2021-01-11T23:30:54.346Z","name":"Locations","slug":"locations","singularName":"Location"},{"_id":"601049c19338214ccc2919a7","lastUpdated":"2021-01-26T16:56:40.277Z","createdOn":"2021-01-12T12:33:17.167Z","name":"People","slug":"people","singularName":"Person"},{"_id":"601049c193382147ea2919a8","lastUpdated":"2021-01-26T16:56:40.316Z","createdOn":"2021-01-12T18:45:12.934Z","name":"Resources","slug":"resources","singularName":"Resource"},{"_id":"601049c193382103382919a9","lastUpdated":"2021-01-26T16:56:40.333Z","createdOn":"2021-01-21T19:49:39.453Z","name":"Subpages","slug":"subpage","singularName":"Subpage"}]'
+  recorded_at: Thu, 28 Jan 2021 17:40:48 GMT
+- request:
+    method: get
+    uri: https://api.webflow.com/collections/601049c193382147ea2919a8/items/webflow_item_id
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <WEBFLOW_API_TOKEN>
+      Accept-Version:
+      - 1.0.0
+      Connection:
+      - close
+      Host:
+      - api.webflow.com
+      User-Agent:
+      - http.rb/4.4.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 28 Jan 2021 17:40:48 GMT
+      Etag:
+      - W/"207-8427449d"
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '58'
+      X-Response-Time:
+      - 54.197ms
+      X-Wf-Rid:
+      - 3eb96d11-df88-49fc-bac8-1f4a5281f8d8
+      Content-Length:
+      - '519'
+      Connection:
+      - Close
+    body:
+      encoding: UTF-8
+      string: '{"items":[{"_archived":false,"_draft":false,"link":"http://mcglynnkoch.ca","name":"Updated
+        Resource title","slug":"return-of-the-fake-clash","updated-on":"2021-01-28T15:50:47.948Z","updated-by":"Person_600e7e930d76e69196a9592b","created-on":"2021-01-28T12:01:58.755Z","created-by":"Person_600e7e930d76e69196a9592b","published-on":"2021-01-28T15:50:47.948Z","published-by":"Person_600e7e930d76e69196a9592b","_cid":"601049c193382147ea2919a8","_id":"webflow_item_id"}],"count":1,"limit":100,"offset":0,"total":16}'
+  recorded_at: Thu, 28 Jan 2021 17:40:48 GMT
+- request:
+    method: delete
+    uri: https://api.webflow.com/collections/601049c193382147ea2919a8/items/webflow_item_id
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <WEBFLOW_API_TOKEN>
+      Accept-Version:
+      - 1.0.0
+      Connection:
+      - close
+      Host:
+      - api.webflow.com
+      User-Agent:
+      - http.rb/4.4.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 28 Jan 2021 17:40:49 GMT
+      Etag:
+      - W/"d-b45e80bf"
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '57'
+      X-Response-Time:
+      - 631.662ms
+      X-Wf-Rid:
+      - 317a17dd-1474-46b2-afa1-2fcbbfb3c45c
+      Content-Length:
+      - '13'
+      Connection:
+      - Close
+    body:
+      encoding: UTF-8
+      string: '{"deleted":1}'
+  recorded_at: Thu, 28 Jan 2021 17:40:49 GMT
+recorded_with: VCR 6.0.0
