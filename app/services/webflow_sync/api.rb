@@ -10,7 +10,10 @@ module WebflowSync
 
     def create_item(record, collection_slug)
       collection = find_webflow_collection(collection_slug)
-      response = client.create_item(collection['_id'], record.as_webflow_json, live: true)
+      response = client.create_item(
+        collection['_id'],
+        record.as_webflow_json.reverse_merge(_archived: false, _draft: false), live: true
+      )
 
       record.update!(webflow_item_id: response['_id'])
     end
@@ -19,7 +22,7 @@ module WebflowSync
       collection = find_webflow_collection(collection_slug)
       client.update_item(
         { '_cid' => collection['_id'], '_id' => record.webflow_item_id },
-        record.as_webflow_json, live: true
+        record.as_webflow_json.reverse_merge(_archived: false, _draft: false), live: true
       )
     end
 
