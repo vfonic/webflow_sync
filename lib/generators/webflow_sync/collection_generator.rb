@@ -16,10 +16,10 @@ module WebflowSync
       end
 
       def include_item_sync_in_model_file
-        module_snippet = <<~EOS.indent(2)
+        module_snippet = <<~END_OF_INCLUDE.indent(2)
 
           include WebflowSync::ItemSync
-        EOS
+        END_OF_INCLUDE
 
         insert_into_file "app/models/#{name.underscore}.rb", module_snippet, after: / < ApplicationRecord$/
       end
