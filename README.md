@@ -53,6 +53,79 @@ For example, for `Article` model:
 
 Your WebFlow collection `slug` should be `"articles"`.
 
+### Set `webflow_site_id`
+
+There are couple of ways how you can set the `webflow_site_id` to be used.
+
+#### Set `webflow_site_id` through configuration
+
+In `config/initializers/webflow_sync.rb` you can specify `webflow_site_id`:
+
+```ruby
+WebflowSync.configure do |config|
+  config.webflow_site_id = ENV.fetch('WEBFLOW_SITE_ID')
+end
+```
+
+#### Set `webflow_site_id` for each model individually
+
+You can set `webflow_site_id` per model, or even per record.
+
+To do this, override the `#webflow_site_id` method provided by `WebflowSync::ItemSync` in your ActiveRecord model.
+
+For example, you could have `Site` model in your codebase:
+
+```ruby
+# app/models/site.rb
+class Site < ApplicationRecord
+  has_many :articles
+end
+
+# app/models/article.rb
+class Article < ApplicationRecord
+  include WebflowSync::ItemSync
+
+  belongs_to :site
+
+  def webflow_site_id
+    self.site.webflow_site_id
+  end
+end
+```
+
+### Customize fields to synchronize
+
+By default, WebflowSync calls `#as_webflow_json` on a record to get the fields that it needs to push to WebFlow. `#as_webflow_json` simply calls `#as_json` in its default implementation. To change this behavior, you can override `#as_json` in your model:
+
+```ruby
+# app/models/article.rb
+class Article < ApplicationRecord
+  include WebflowSync::ItemSync
+
+  def as_json
+    {
+      title: self.title.capitalize,
+      slug: self.title.parameterize,
+      published_at: self.created_at,
+      image: self.image_url
+    }
+  end
+end
+```
+
+Or if you already use `#as_json` for some other use-case and cannot modify it, you can also override `#as_webflow_json` method. Here's the default `#as_webflow_json` implementation (you don't need to add this to your model):
+
+```ruby
+# app/models/article.rb
+class Article < ApplicationRecord
+  include WebflowSync::ItemSync
+  
+  def as_webflow_json
+    self.as_json
+  end
+end
+```
+
 ### Run the initial sync
 
 After setting up which models you want to sync to WebFlow, you can run the initial sync for each of the models:
