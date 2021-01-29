@@ -1,0 +1,8 @@
+class WebflowCallbackController < ApplicationController
+  skip_before_action :verify_authenticity_token, only: :index
+
+  # Go to /auth/webflow to start oauth flow
+  def index
+    render plain: request.env['omniauth.auth'].dig('credentials', 'token')
+  end
+end

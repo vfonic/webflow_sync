@@ -6,7 +6,10 @@ module WebflowSync
 
     def configure
       self.configuration ||= Configuration.new
-      yield(configuration)
+      yield(self.configuration)
+
+      self.configuration.api_token ||= ENV.fetch('WEBFLOW_API_TOKEN')
+      self.configuration.skip_webflow_sync ||= Rails.env.test?
     end
 
     private
@@ -15,10 +18,6 @@ module WebflowSync
   end
 
   class Configuration
-    attr_accessor :skip_webflow_sync, :webflow_site_id
-
-    def initialize
-      @skip_webflow_sync = Rails.env.test?
-    end
+    attr_accessor :api_token, :skip_webflow_sync, :webflow_site_id
   end
 end

@@ -28,6 +28,14 @@ bundle exec rails generate webflow_sync:install
 
 ## Usage
 
+### Generate and set WebFlow API token
+
+Run API token Rails generator and follow instructions:
+
+```bash
+bundle exec rails generate webflow_sync:api_token_flow
+```
+
 ### Add WebflowSync to models
 
 For each model that you want to sync to WebFlow, you need to run the collection generator:
