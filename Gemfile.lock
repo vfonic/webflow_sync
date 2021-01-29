@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/vfonic/stylecheck.git
-  revision: db1be8863d0e6086f719f32322929d9107789358
+  revision: 525bb6c0f5151d000694a66572c13518612d5cc3
   specs:
-    stylecheck (11.0.0)
+    stylecheck (12.0.0)
       database_validations
       rake
       rubocop (>= 1.0)
