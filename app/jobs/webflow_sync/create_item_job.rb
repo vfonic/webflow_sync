@@ -8,7 +8,7 @@ module WebflowSync
       return if record.blank?
       return if record.webflow_site_id.blank?
 
-      WebflowApi.new(record.webflow_site_id).create_item(record, collection_slug)
+      WebflowSync::Api.new(record.webflow_site_id).create_item(record, collection_slug)
     end
   end
 end

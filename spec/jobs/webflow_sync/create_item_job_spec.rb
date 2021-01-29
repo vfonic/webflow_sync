@@ -14,7 +14,7 @@ module WebflowSync
       let(:record_id) { 1_234_567 }
 
       it 'does not sync' do
-        allow(WebflowApi).to receive(:new).and_return(mock_webflow_api)
+        allow(WebflowSync::Api).to receive(:new).and_return(mock_webflow_api)
 
         WebflowSync::CreateItemJob.perform_now(collection_slug, record_id)
 
@@ -24,7 +24,7 @@ module WebflowSync
 
     context 'when webflow_site_id is not present' do
       it 'does not sync' do
-        allow(WebflowApi).to receive(:new).and_return(mock_webflow_api)
+        allow(WebflowSync::Api).to receive(:new).and_return(mock_webflow_api)
 
         WebflowSync::CreateItemJob.perform_now(collection_slug, article.id)
 
