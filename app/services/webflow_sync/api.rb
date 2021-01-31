@@ -17,21 +17,24 @@ module WebflowSync
 
       record.update!(webflow_item_id: response['_id'])
       puts "Created #{record.inspect} in #{collection_slug}"
+      response
     end
 
     def update_item(record, collection_slug)
       collection = find_webflow_collection(collection_slug)
-      client.update_item(
+      response = client.update_item(
         { '_cid' => collection['_id'], '_id' => record.webflow_item_id },
         record.as_webflow_json.reverse_merge(_archived: false, _draft: false), live: true
       )
       puts "Updated #{record.inspect} in #{collection_slug}"
+      response
     end
 
     def delete_item(collection_slug, webflow_item_id)
       collection = find_webflow_collection(collection_slug)
-      client.delete_item({ '_cid' => collection['_id'], '_id' => webflow_item_id })
+      response = client.delete_item({ '_cid' => collection['_id'], '_id' => webflow_item_id })
       puts "Deleted #{webflow_item_id} from #{collection_slug}"
+      response
     end
 
     private
@@ -45,10 +48,10 @@ module WebflowSync
       end
 
       def find_webflow_collection(collection_slug)
-        result = collections.find { |collection| collection['slug'] == collection_slug }
-        raise "Cannot find collection #{collection_slug} for Webflow site #{site_id}" unless result
+        response = collections.find { |collection| collection['slug'] == collection_slug }
+        raise "Cannot find collection #{collection_slug} for Webflow site #{site_id}" unless response
 
-        result
+        response
       end
   end
 end
