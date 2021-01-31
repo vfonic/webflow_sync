@@ -12,8 +12,8 @@ module WebflowSync
       def generate
         gem 'omniauth-webflow'
         run 'bundle install'
-        template 'webflow_callback_controller.rb', 'app/controllers/webflow_callback_controller.rb'
-        template 'omniauth_webflow.rb', 'config/initializers/omniauth_webflow.rb'
+        template 'webflow_callback_controller.rb.erb', 'app/controllers/webflow_callback_controller.rb'
+        template 'omniauth_webflow.rb.erb', 'config/initializers/omniauth_webflow.rb'
         route "post '/auth/webflow/callback', to: 'webflow_callback#index'"
         route "get '/auth/webflow/callback', to: 'webflow_callback#index'"
 
