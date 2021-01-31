@@ -16,6 +16,7 @@ module WebflowSync
       )
 
       record.update!(webflow_item_id: response['_id'])
+      puts "Created #{record.inspect} in #{collection_slug}"
     end
 
     def update_item(record, collection_slug)
@@ -24,11 +25,13 @@ module WebflowSync
         { '_cid' => collection['_id'], '_id' => record.webflow_item_id },
         record.as_webflow_json.reverse_merge(_archived: false, _draft: false), live: true
       )
+      puts "Updated #{record.inspect} in #{collection_slug}"
     end
 
     def delete_item(collection_slug, webflow_item_id)
       collection = find_webflow_collection(collection_slug)
       client.delete_item({ '_cid' => collection['_id'], '_id' => webflow_item_id })
+      puts "Deleted #{webflow_item_id} from #{collection_slug}"
     end
 
     private
