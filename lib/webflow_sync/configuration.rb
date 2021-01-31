@@ -19,5 +19,9 @@ module WebflowSync
 
   class Configuration
     attr_accessor :api_token, :skip_webflow_sync, :webflow_site_id
+
+    def api_token=(value)
+      @api_token = Webflow.config.api_token = ENV.fetch('WEBFLOW_API_TOKEN')
+    end
   end
 end
