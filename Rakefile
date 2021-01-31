@@ -10,3 +10,6 @@ load 'rails/tasks/statistics.rake'
 require 'bundler/gem_tasks'
 
 require 'stylecheck/rake_tasks' unless Rails.env.production?
+
+load 'rspec/rails/tasks/rspec.rake'
+task default: :spec
