@@ -8,16 +8,21 @@ module WebflowSync
       @site_id = site_id
     end
 
-    def create_item(record, collection_slug)
+    def create_item(record, collection_slug) # rubocop:disable Metrics/MethodLength
       collection = find_webflow_collection(collection_slug)
       response = client.create_item(
         collection['_id'],
         record.as_webflow_json.reverse_merge(_archived: false, _draft: false), live: true
       )
 
-      record.update!(webflow_item_id: response['_id'])
-      puts "Created #{record.inspect} in #{collection_slug}"
-      response
+      # use update_column to skip callbacks to prevent WebflowSync::ItemSync to kick off
+      if record.update_column(:webflow_item_id, response['_id']) # rubocop:disable Rails/SkipsModelValidations
+        puts "Created #{record.inspect} in #{collection_slug}"
+        response
+      else
+        raise "Failed to store webflow_item_id: '#{response['_id']}' " \
+              "after creating item in WebFlow collection #{record.inspect}"
+      end
     end
 
     def update_item(record, collection_slug)
