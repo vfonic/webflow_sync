@@ -33,5 +33,8 @@ jobs:
           PGUSER: postgres
           RAILS_ENV: test
 
+      - name: Run style check
+        run: bundle exec rails style
+
       - name: Run tests
         run: bundle exec rspec
