@@ -158,6 +158,11 @@ This gem silently "fails" (does nothing) when `webflow_site_id` or `webflow_item
 
 PRs welcome!
 
+## Thanks and Credits
+
+This gem wouldn't be possible without the amazing work of [webflow-ruby](https://github.com/penseo/webflow-ruby) gem. Thank you, @phoet!
+
+
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
