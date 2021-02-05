@@ -9,7 +9,7 @@ module WebflowSync
       yield(self.configuration)
 
       self.configuration.api_token ||= ENV.fetch('WEBFLOW_API_TOKEN')
-      self.configuration.skip_webflow_sync ||= Rails.env.test?
+      self.configuration.skip_webflow_sync ||= !Rails.env.production?
     end
 
     private
