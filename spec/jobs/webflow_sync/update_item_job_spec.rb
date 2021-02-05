@@ -8,6 +8,14 @@ module WebflowSync
     let(:article) { create(:article, webflow_item_id: 'webflow_item_id') }
     let(:mock_webflow_api) { instance_double('mock_webflow_api', update_item: nil) }
 
+    it 'updates item on Webflow', vcr: { cassette_name: 'webflow/update_item' } do
+      article.update!(title: 'Updated article title')
+
+      result = WebflowSync::UpdateItemJob.perform_now(collection_slug, article.id)
+
+      expect(result['name']).to eq 'Updated article title'
+    end
+
     context 'when record does not exist' do
       let(:record_id) { 1_234_567 }
 
@@ -42,12 +50,22 @@ module WebflowSync
       end
     end
 
-    it 'updates item on Webflow', vcr: { cassette_name: 'webflow/update_item' } do
-      article.update!(title: 'Updated article title')
+    context 'when webflow_item_id is nil' do
+      let(:mock_webflow_api) do
+        instance_double('mock_webflow_api', update_item: nil, create_item: nil)
+      end
 
-      result = WebflowSync::UpdateItemJob.perform_now(collection_slug, article.id)
+      before(:each) do
+        article.update!(webflow_item_id: nil)
+      end
 
-      expect(result['name']).to eq 'Updated article title'
+      it 'calls CreateItemJob' do
+        allow(WebflowSync::Api).to receive(:new).and_return(mock_webflow_api)
+
+        WebflowSync::UpdateItemJob.perform_now(collection_slug, article.id)
+
+        expect(mock_webflow_api).to have_received(:create_item)
+      end
     end
   end
 end
