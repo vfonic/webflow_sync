@@ -18,6 +18,7 @@ jobs:
         uses: actions/setup-ruby@v1
         with:
           ruby-version: 2.7.2
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
 
       - name: Setup gems
         run: |
