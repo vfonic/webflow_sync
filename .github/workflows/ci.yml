@@ -20,12 +20,6 @@ jobs:
           ruby-version: 2.7.2
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
 
-      - name: Setup gems
-        run: |
-          sudo apt-get -yqq install libpq-dev
-          gem install bundler
-          bundle install --jobs 4 --retry 3
-
       - name: Setup database
         run: |
           bundle exec rails db:create db:schema:load
