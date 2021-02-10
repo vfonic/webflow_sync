@@ -1,4 +1,5 @@
-![build](https://github.com/vfonic/webflow_sync/workflows/build/badge.svg)
+[![Build Status](https://github.com/vfonic/webflow_sync/workflows/build/badge.svg)](https://github.com/vfonic/webflow_sync/actions)
+
 
 # WebflowSync
 
