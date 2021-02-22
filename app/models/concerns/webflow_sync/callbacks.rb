@@ -8,9 +8,9 @@ module WebflowSync
     included do
       attr_accessor :skip_webflow_sync
 
-      after_create :create_webflow_item
-      after_update :update_webflow_item
-      after_destroy :destroy_webflow_item
+      after_commit :create_webflow_item, on: :create
+      after_commit :update_webflow_item, on: :update
+      after_commit :destroy_webflow_item, on: :destroy
 
       def create_webflow_item
         return if self.skip_webflow_sync || WebflowSync.configuration.skip_webflow_sync
