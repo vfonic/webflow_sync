@@ -8,6 +8,11 @@ module WebflowSync
       @site_id = site_id
     end
 
+    def get_item(collection_slug, webflow_item_id)
+      collection = find_webflow_collection(collection_slug)
+      client.item(collection['_id'], webflow_item_id)
+    end
+
     def create_item(record, collection_slug) # rubocop:disable Metrics/MethodLength
       collection = find_webflow_collection(collection_slug)
       response = client.create_item(
