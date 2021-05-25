@@ -1,0 +1,5 @@
+inherit_gem:
+  stylecheck: config/rubocop.yml
+
+Rails/EnvironmentVariableAccess:
+  AllowReads: true
