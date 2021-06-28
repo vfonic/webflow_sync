@@ -42,8 +42,7 @@ module WebflowSync
       response = make_request(:create_item, collection['_id'],
                               record.as_webflow_json.reverse_merge(_archived: false, _draft: false), live: true)
 
-      # use update_column to skip callbacks to prevent WebflowSync::ItemSync to kick off
-      if record.update_column(:webflow_item_id, response['_id']) # rubocop:disable Rails/SkipsModelValidations
+      if update_record_colums(record, response)
         puts "Created #{record.inspect} in #{collection_slug}"
         response
       else
@@ -111,6 +110,15 @@ module WebflowSync
         raise "Cannot find collection #{collection_slug} for Webflow site #{site_id}" unless response
 
         response
+      end
+
+      def update_record_colums(record, response)
+        # use update_column to skip callbacks to prevent WebflowSync::ItemSync to kick off
+        if WebflowSync.configuration.sync_webflow_slug
+          record.update_columns(webflow_item_id: response['_id'], webflow_slug: response['slug']) # rubocop:disable Rails/SkipsModelValidations
+        else
+          record.update_column(:webflow_item_id, response['_id']) # rubocop:disable Rails/SkipsModelValidations
+        end
       end
 
       def make_request(method_name, *args, retries: 0, **kwargs)
