@@ -31,11 +31,18 @@ module WebflowSync
       end
     end
 
-    it 'destroys item on Webflow', vcr: { cassette_name: 'webflow/delete_item' } do
+    # it 'destroys item on Webflow', vcr: { cassette_name: 'webflow/delete_item' } do
+    #   result = WebflowSync::DestroyItemJob.perform_now(collection_slug: 'articles',
+    #                                                    webflow_site_id: 'webflow_site_id',
+    #                                                    webflow_item_id: 'webflow_item_id')
+    #   expect(result).to eq({ 'deleted' => 1 })
+    # end
+    it 'destroys item on Webflow', vcr: { cassette_name: 'webflow/delete_item_and_publish' } do
       result = WebflowSync::DestroyItemJob.perform_now(collection_slug: 'articles',
-                                                       webflow_site_id: 'webflow_site_id',
-                                                       webflow_item_id: 'webflow_item_id')
-      expect(result).to eq({ 'deleted' => 1 })
+                                                       webflow_site_id: '6048c57f255aff50533565bf',
+                                                       webflow_item_id: '60ba0e078987c80f387d83c8')
+      # We should get number of items deleted, but we get {} in response event item is removed from collection.
+      expect(result).to eq({ 'deleted' => {} })
     end
   end
 end
