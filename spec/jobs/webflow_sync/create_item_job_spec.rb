@@ -49,5 +49,47 @@ module WebflowSync
 
       expect(article.reload.webflow_item_id).to be_present
     end
+
+    context 'when sync_webflow_slug is true' do
+      before(:each) do
+        @sync_webflow_slug = WebflowSync.configuration.sync_webflow_slug
+        WebflowSync.configure do |config|
+          config.sync_webflow_slug = true
+        end
+      end
+
+      after(:each) do
+        WebflowSync.configure do |config|
+          config.sync_webflow_slug = @sync_webflow_slug
+        end
+      end
+
+      it 'syncs webflow_slug', vcr: { cassette_name: 'webflow/create_item' } do
+        WebflowSync::CreateItemJob.perform_now(collection_slug, article.id)
+
+        expect(article.reload.webflow_slug).to be_present
+      end
+    end
+
+    context 'when sync_webflow_slug is false' do
+      before(:each) do
+        @sync_webflow_slug = WebflowSync.configuration.sync_webflow_slug
+        WebflowSync.configure do |config|
+          config.sync_webflow_slug = false
+        end
+      end
+
+      after(:each) do
+        WebflowSync.configure do |config|
+          config.sync_webflow_slug = @sync_webflow_slug
+        end
+      end
+
+      it 'does not sync webflow slug', vcr: { cassette_name: 'webflow/create_item' } do
+        WebflowSync::CreateItemJob.perform_now(collection_slug, article.id)
+
+        expect(article.reload.webflow_slug).to be_nil
+      end
+    end
   end
 end
