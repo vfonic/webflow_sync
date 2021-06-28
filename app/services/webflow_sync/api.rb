@@ -68,6 +68,13 @@ module WebflowSync
       response
     end
 
+    def publish
+      response = make_request(:publish, site_id, domain_names: domain_names)
+
+      puts "Publish all domains for Webflow site with id: #{site_id}"
+      response
+    end
+
     private
 
       def client
@@ -76,6 +83,22 @@ module WebflowSync
 
       def collections
         @collections ||= client.collections(site_id)
+      end
+
+      def domain_names
+        @domain_names ||= find_domain_names
+      end
+
+      def find_domain_names
+        # client.domains request does not return the default domain
+        # We need to get default domain name if there are no custom domains set to avoid error:
+        # Webflow::Error: Domain not found for site
+        site = client.site(site_id)
+        default_domain_name = "#{site['shortName']}.webflow.io"
+        names = [default_domain_name]
+        client.domains(site_id).each { |domain| names << domain['name'] }
+
+        names
       end
 
       def find_webflow_collection(collection_slug)
