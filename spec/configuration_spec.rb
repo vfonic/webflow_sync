@@ -23,5 +23,15 @@ module WebflowSync
         expect(WebflowSync.configuration.skip_webflow_sync).to be(true)
       end
     end
+
+    context 'when sync_webflow_slug is true' do
+      it 'is true' do
+        WebflowSync.configure do |config|
+          config.sync_webflow_slug = true
+        end
+
+        expect(WebflowSync.configuration.sync_webflow_slug).to be(true)
+      end
+    end
   end
 end
