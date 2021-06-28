@@ -8,6 +8,29 @@ module WebflowSync
       @site_id = site_id
     end
 
+    def get_all_items(collection_slug:, page_limit: 100) # rubocop:disable Metrics/MethodLength
+      collection_id = find_webflow_collection(collection_slug)['_id']
+      max_items_per_page = page_limit # Webflow::Error: 'limit' must be less than or equal to 100
+      first_page_number = 1
+
+      result = make_request(:paginate_items, collection_id, page: first_page_number, per_page: max_items_per_page)
+      puts "Get all items from WebFlow for #{collection_slug} page: #{first_page_number}"
+
+      total_items = result['total']
+      total_pages = (total_items.to_f / max_items_per_page).ceil
+      items = result['items']
+
+      (2..total_pages).each do |page_number|
+        next_page_items = make_request(:paginate_items, collection_id,
+                                       page: page_number, per_page: max_items_per_page)['items']
+        puts "Get all items from WebFlow for #{collection_slug} page: #{page_number}"
+
+        items.concat next_page_items
+      end
+
+      items
+    end
+
     def get_item(collection_slug, webflow_item_id)
       collection = find_webflow_collection(collection_slug)
 
