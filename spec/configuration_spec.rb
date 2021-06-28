@@ -25,11 +25,20 @@ module WebflowSync
     end
 
     context 'when sync_webflow_slug is true' do
-      it 'is true' do
+      before(:each) do
+        @sync_webflow_slug = WebflowSync.configuration.sync_webflow_slug
         WebflowSync.configure do |config|
           config.sync_webflow_slug = true
         end
+      end
 
+      after(:each) do
+        WebflowSync.configure do |config|
+          config.sync_webflow_slug = @sync_webflow_slug
+        end
+      end
+
+      it 'is true' do
         expect(WebflowSync.configuration.sync_webflow_slug).to be(true)
       end
     end
