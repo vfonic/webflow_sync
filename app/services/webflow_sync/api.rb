@@ -63,9 +63,8 @@ module WebflowSync
     def delete_item(collection_slug, webflow_item_id)
       collection = find_webflow_collection(collection_slug)
       response = make_request(:delete_item, { '_cid' => collection['_id'], '_id' => webflow_item_id })
-      # When record is deleted from application, item is removed from Webflow collection, but item's page stay on live Webflow site.
-      # We need to trigger publish of all website domains in order this changes to be visible,
-      # and the item's page to be removed too.
+      # When the item is removed from WebFlow, it's still visible throughout the WebFlow site (probably due to some caching).
+      # To remove the item immediately from the WebFlow site, we need to publish the site.
       publish
 
       puts "Deleted #{webflow_item_id} from #{collection_slug}"
