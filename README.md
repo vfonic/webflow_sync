@@ -36,6 +36,34 @@ Run API token Rails generator and follow instructions:
 ```bash
 bundle exec rails generate webflow_sync:api_token_flow
 ```
+### Configuration options
+
+In `config/initializers/webflow_sync.rb` you can specify configuration options:
+
+1. `api_token`
+2. `webflow_site_id`
+3. `skip_webflow_sync` - skip synchronization for different environments
+4. `sync_webflow_slug` - save slug generated on WebFlow to the Rails database, in the Rails model column. 
+
+  This can be useful if you want to link to WebFlow item directly from your Rails app:
+
+  ```rb
+  link_to('View on site', "https://#{webflow_domain}/articles/#{record.webflow_slug}", target: :blank)
+  ```
+
+  To save slug generated on WebFlow in Rails model, `webflow_slug` column:
+
+  1. add `webflow_slug` column on the model table, then
+  2. set the `sync_webflow_slug` option to `true`.
+
+  Example: 
+
+  ```rb
+  WebflowSync.configure do |config|
+    config.skip_webflow_sync = ActiveModel::Type::Boolean.new.cast(ENV.fetch('SKIP_WEBFLOW_SYNC'))
+    config.sync_webflow_slug = ActiveModel::Type::Boolean.new.cast(ENV.fetch('SYNC_WEBFLOW_SLUG'))
+  end
+  ```
 
 ### Add WebflowSync to models
 
