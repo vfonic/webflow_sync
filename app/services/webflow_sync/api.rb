@@ -60,6 +60,10 @@ module WebflowSync
       response = make_request(:update_item, { '_cid' => collection['_id'], '_id' => record.webflow_item_id },
                               record.as_webflow_json.reverse_merge(_archived: false, _draft: false), live: true)
 
+      # When the item is updated, sometimes changes are not visible throughout the WebFlow site immediately (probably due to some caching).
+      # To make this change immediately visible from the WebFlow site, we need to publish the site.
+      publish if WebflowSync.configuration.publish_to_all_domains
+
       puts "Updated #{record.inspect} in #{collection_slug}"
       response
     end
