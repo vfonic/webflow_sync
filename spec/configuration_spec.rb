@@ -42,5 +42,24 @@ module WebflowSync
         expect(WebflowSync.configuration.sync_webflow_slug).to be(true)
       end
     end
+
+    context 'when publish_to_all_domains is true' do
+      before(:each) do
+        @publish_to_all_domains = WebflowSync.configuration.publish_to_all_domains
+        WebflowSync.configure do |config|
+          config.publish_to_all_domains = true
+        end
+      end
+
+      after(:each) do
+        WebflowSync.configure do |config|
+          config.publish_to_all_domains = @publish_to_all_domains
+        end
+      end
+
+      it 'is true' do
+        expect(WebflowSync.configuration.publish_to_all_domains).to be(true)
+      end
+    end
   end
 end
