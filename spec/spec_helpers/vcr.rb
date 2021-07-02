@@ -9,4 +9,5 @@ VCR.configure do |c|
   c.default_cassette_options = { record: :none }
   # use this to filter out sensitive information that you don't want VCR to store in spec/vcr files
   c.filter_sensitive_data('<WEBFLOW_API_TOKEN>') { 'webflow_api_token' }
+  c.filter_sensitive_data('<WEBFLOW_SITE_ID>') { 'webflow_site_id' }
 end

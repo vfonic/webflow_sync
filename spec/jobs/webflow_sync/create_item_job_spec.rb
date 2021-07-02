@@ -10,6 +10,13 @@ module WebflowSync
       instance_double('mock_webflow_api', create_item: nil)
     end
 
+    before(:each) do
+      WebflowSync.configure do |config|
+        config.webflow_site_id = 'webflow_site_id'
+        config.api_token = 'webflow_api_token'
+      end
+    end
+
     context 'when record does not exist' do
       let(:record_id) { 1_234_567 }
 
