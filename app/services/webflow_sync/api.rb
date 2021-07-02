@@ -37,12 +37,16 @@ module WebflowSync
       make_request(:item, collection['_id'], webflow_item_id)
     end
 
-    def create_item(record, collection_slug)
+    def create_item(record, collection_slug) # rubocop:disable Metrics/MethodLength
       collection = find_webflow_collection(collection_slug)
       response = make_request(:create_item, collection['_id'],
                               record.as_webflow_json.reverse_merge(_archived: false, _draft: false), live: true)
 
       if update_record_colums(record, response)
+        # When the item is created, sometimes changes are not visible throughout the WebFlow site immediately (probably due to some caching).
+        # To make this change immediately visible from the WebFlow site, we need to publish the site.
+        publish if WebflowSync.configuration.publish_to_all_domains
+
         puts "Created #{record.inspect} in #{collection_slug}"
         response
       else
