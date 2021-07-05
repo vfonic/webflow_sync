@@ -45,7 +45,7 @@ module WebflowSync
       if update_record_colums(record, response)
         # When the item is created, sometimes changes are not visible throughout the WebFlow site immediately (probably due to some caching).
         # To make this change immediately visible from the WebFlow site, we need to publish the site.
-        publish if WebflowSync.configuration.publish_on_sync
+        publish
 
         puts "Created #{record.inspect} in #{collection_slug}"
         response
@@ -62,7 +62,7 @@ module WebflowSync
 
       # When the item is updated, sometimes changes are not visible throughout the WebFlow site immediately (probably due to some caching).
       # To make this change immediately visible from the WebFlow site, we need to publish the site.
-      publish if WebflowSync.configuration.publish_on_sync
+      publish
 
       puts "Updated #{record.inspect} in #{collection_slug}"
       response
@@ -73,13 +73,15 @@ module WebflowSync
       response = make_request(:delete_item, { '_cid' => collection['_id'], '_id' => webflow_item_id })
       # When the item is removed from WebFlow, it's still visible throughout the WebFlow site (probably due to some caching).
       # To remove the item immediately from the WebFlow site, we need to publish the site.
-      publish if WebflowSync.configuration.publish_on_sync
+      publish
 
       puts "Deleted #{webflow_item_id} from #{collection_slug}"
       response
     end
 
     def publish
+      return unless WebflowSync.configuration.publish_on_sync
+
       response = make_request(:publish, site_id, domain_names: domain_names)
 
       puts "Publish all domains for Webflow site with id: #{site_id}"
