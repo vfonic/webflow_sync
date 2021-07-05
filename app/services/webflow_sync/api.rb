@@ -45,7 +45,7 @@ module WebflowSync
       if update_record_colums(record, response)
         # When the item is created, sometimes changes are not visible throughout the WebFlow site immediately (probably due to some caching).
         # To make this change immediately visible from the WebFlow site, we need to publish the site.
-        publish if WebflowSync.configuration.publish_to_all_domains
+        publish if WebflowSync.configuration.publish_on_sync
 
         puts "Created #{record.inspect} in #{collection_slug}"
         response
@@ -62,7 +62,7 @@ module WebflowSync
 
       # When the item is updated, sometimes changes are not visible throughout the WebFlow site immediately (probably due to some caching).
       # To make this change immediately visible from the WebFlow site, we need to publish the site.
-      publish if WebflowSync.configuration.publish_to_all_domains
+      publish if WebflowSync.configuration.publish_on_sync
 
       puts "Updated #{record.inspect} in #{collection_slug}"
       response

@@ -43,8 +43,8 @@ In `config/initializers/webflow_sync.rb` you can specify configuration options:
 1. `api_token`
 2. `webflow_site_id`
 3. `skip_webflow_sync` - skip synchronization for different environments.
-4. `publish_to_all_domains` - republish all domains after create and update actions. Republish is called after every delete action by default.
-5. `sync_webflow_slug` - save slug generated on WebFlow to the Rails database, in the Rails model column. 
+4. `publish_on_sync` - republish all domains after create and update actions. Republish is called after every delete action by default.
+5. `sync_webflow_slug` - save slug generated on WebFlow to the Rails database, in the Rails model column.
 
   This can be useful if you want to link to WebFlow item directly from your Rails app:
 
@@ -57,7 +57,7 @@ In `config/initializers/webflow_sync.rb` you can specify configuration options:
   1. add `webflow_slug` column on the model table, then
   2. set the `sync_webflow_slug` option to `true`.
 
-  Example: 
+  Example:
 
   ```rb
   WebflowSync.configure do |config|
@@ -157,7 +157,7 @@ Or if you already use `#as_json` for some other use-case and cannot modify it, y
 # app/models/article.rb
 class Article < ApplicationRecord
   include WebflowSync::ItemSync
-  
+
   def as_webflow_json
     self.as_json
   end

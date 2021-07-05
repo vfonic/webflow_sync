@@ -18,7 +18,7 @@ module WebflowSync
   end
 
   class Configuration
-    attr_accessor :skip_webflow_sync, :webflow_site_id, :sync_webflow_slug, :publish_to_all_domains
+    attr_accessor :skip_webflow_sync, :webflow_site_id, :sync_webflow_slug, :publish_on_sync
     attr_reader :api_token
 
     def api_token=(value)
