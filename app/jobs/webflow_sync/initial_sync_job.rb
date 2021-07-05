@@ -3,7 +3,7 @@
 module WebflowSync
   class InitialSyncJob < ApplicationJob
     def perform(collection_slug)
-      model_class = collection_slug.classify.constantize
+      model_class = collection_slug.underscore.classify.constantize
       model_class.where(webflow_item_id: nil).find_each do |record|
         next if record.webflow_site_id.blank?
 
