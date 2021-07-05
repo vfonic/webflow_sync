@@ -36,10 +36,11 @@ module WebflowSync
 
       it 'raises an error when it cannot find a webflow collection' do
         create(:article)
+        error_message = "Cannot find collection articles for Webflow site #{ENV.fetch('WEBFLOW_SITE_ID')}"
 
         expect do
           WebflowSync::InitialSyncJob.perform_now('articles')
-        end.to raise_error('Cannot find collection articles for Webflow site webflow_site_id')
+        end.to raise_error(error_message)
       end
     end
   end

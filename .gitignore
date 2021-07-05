@@ -10,3 +10,6 @@
 /spec/dummy/tmp/
 .byebug_history
 *.gem
+
+# Ignore application configuration
+.env

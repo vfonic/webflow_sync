@@ -8,13 +8,6 @@ module WebflowSync
     let(:article) { create(:article, webflow_item_id: '60defde681813e53c6be97ea') }
     let(:mock_webflow_api) { instance_double('mock_webflow_api', update_item: nil) }
 
-    before(:each) do
-      WebflowSync.configure do |config|
-        config.webflow_site_id = 'webflow_site_id'
-        config.api_token = 'webflow_api_token'
-      end
-    end
-
     it 'updates item on Webflow', vcr: { cassette_name: 'webflow/update_item' } do
       article.update!(title: 'Updated article title')
 
@@ -44,7 +37,7 @@ module WebflowSync
 
       after(:each) do
         WebflowSync.configure do |config|
-          config.webflow_site_id = 'webflow_site_id'
+          config.webflow_site_id = ENV.fetch('WEBFLOW_SITE_ID')
         end
       end
 
