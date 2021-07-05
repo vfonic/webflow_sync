@@ -3,10 +3,34 @@
 require 'rails_helper'
 
 module WebflowSync
+  # rubocop:disable RSpec/MultipleMemoizedHelpers
   RSpec.describe WebflowSync::UpdateItemJob, type: :job do
     let(:collection_slug) { 'articles' }
     let(:article) { create(:article, webflow_item_id: '60defde681813e53c6be97ea') }
     let(:mock_webflow_api) { instance_double('mock_webflow_api', update_item: nil) }
+
+    let(:sync_webflow_slug) { false }
+    let(:webflow_site_id) { ENV.fetch('WEBFLOW_SITE_ID') }
+
+    before(:each) do
+      @old_publish_on_sync = WebflowSync.configuration.publish_on_sync
+      @old_sync_webflow_slug = WebflowSync.configuration.sync_webflow_slug
+      @old_webflow_site_id = WebflowSync.configuration.webflow_site_id
+
+      WebflowSync.configure do |config|
+        config.publish_on_sync = false
+        config.sync_webflow_slug = sync_webflow_slug
+        config.webflow_site_id = webflow_site_id
+      end
+    end
+
+    after(:each) do
+      WebflowSync.configure do |config|
+        config.publish_on_sync = @old_publish_on_sync
+        config.sync_webflow_slug = @old_sync_webflow_slug
+        config.webflow_site_id = @old_webflow_site_id
+      end
+    end
 
     it 'updates item on Webflow', vcr: { cassette_name: 'webflow/update_item' } do
       article.update!(title: 'Updated article title')
@@ -29,17 +53,7 @@ module WebflowSync
     end
 
     context 'when webflow_site_id is nil' do
-      before(:each) do
-        WebflowSync.configure do |config|
-          config.webflow_site_id = nil
-        end
-      end
-
-      after(:each) do
-        WebflowSync.configure do |config|
-          config.webflow_site_id = ENV.fetch('WEBFLOW_SITE_ID')
-        end
-      end
+      let(:webflow_site_id) { nil }
 
       it 'does not sync' do
         allow(WebflowSync::Api).to receive(:new).and_return(mock_webflow_api)
@@ -68,4 +82,5 @@ module WebflowSync
       end
     end
   end
+  # rubocop:enable RSpec/MultipleMemoizedHelpers
 end

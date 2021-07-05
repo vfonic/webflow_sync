@@ -6,10 +6,13 @@ module WebflowSync
 
     def configure
       self.configuration ||= Configuration.new
+
+      self.configuration.publish_on_sync = true
+      self.configuration.skip_webflow_sync = !Rails.env.production?
+
       yield(self.configuration)
 
       self.configuration.api_token ||= ENV.fetch('WEBFLOW_API_TOKEN')
-      defined?(self.configuration.skip_webflow_sync) or self.configuration.skip_webflow_sync = !Rails.env.production?
     end
 
     private

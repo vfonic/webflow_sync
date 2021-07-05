@@ -19,6 +19,15 @@ module WebflowSync
 
     before(:each) do
       allow(::Webflow::Client).to receive(:new).and_return(webflow_mock_client)
+
+      @old_publish_on_sync = WebflowSync.configuration.publish_on_sync
+      WebflowSync.configure do |config|
+        config.publish_on_sync = false
+      end
+    end
+
+    after(:each) do
+      WebflowSync.configuration.publish_on_sync = @old_publish_on_sync
     end
 
     it 'assigns webflow_item_id to record' do

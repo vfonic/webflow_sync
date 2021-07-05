@@ -61,5 +61,11 @@ module WebflowSync
         expect(WebflowSync.configuration.publish_on_sync).to be(true)
       end
     end
+
+    context 'when publish_on is not set' do
+      it 'defaults to true' do
+        expect(WebflowSync.configuration.publish_on_sync).to be(true)
+      end
+    end
   end
 end
