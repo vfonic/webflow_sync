@@ -6,6 +6,10 @@ jobs:
   build:
     runs-on: ubuntu-18.04
 
+    env:
+        WEBFLOW_API_TOKEN: ${{ secrets.WEBFLOW_API_TOKEN }}
+        WEBFLOW_SITE_ID: ${{ secrets.WEBFLOW_SITE_ID }}
+
     services:
       db:
         image: postgres:12
