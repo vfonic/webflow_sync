@@ -106,8 +106,12 @@ module WebflowSync
         end
       end
 
-      it 'publishes all domains', vcr: { cassette_name: 'webflow/create_item_and_publish', record: :once } do
-        WebflowSync::CreateItemJob.perform_now(collection_slug, article.id)
+      it 'publishes all domains', vcr: { cassette_name: 'webflow/create_item_and_publish' } do
+        publish_uri = "https://api.webflow.com/sites/#{ENV.fetch('WEBFLOW_SITE_ID')}/publish"
+
+        WebflowSync::CreateItemJob.perform_now(collection_slug, create(:article).id)
+
+        expect(WebMock).to have_requested(:post, publish_uri)
       end
     end
   end
