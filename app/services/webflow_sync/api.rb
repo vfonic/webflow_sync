@@ -73,7 +73,7 @@ module WebflowSync
       response = make_request(:delete_item, { '_cid' => collection['_id'], '_id' => webflow_item_id })
       # When the item is removed from WebFlow, it's still visible throughout the WebFlow site (probably due to some caching).
       # To remove the item immediately from the WebFlow site, we need to publish the site.
-      publish
+      publish if WebflowSync.configuration.publish_on_sync
 
       puts "Deleted #{webflow_item_id} from #{collection_slug}"
       response

@@ -43,8 +43,8 @@ In `config/initializers/webflow_sync.rb` you can specify configuration options:
 1. `api_token`
 2. `webflow_site_id`
 3. `skip_webflow_sync` - skip synchronization for different environments.
-4. `publish_on_sync` - republish all domains after create and update actions. Republish is called after every delete action by default.
-5. `sync_webflow_slug` - save slug generated on WebFlow to the Rails database, in the Rails model column.
+4. `publish_on_sync` - republish all domains after create, update and destroy actions.
+5. `sync_webflow_slug` - save slug generated on WebFlow to the Rails model, `webflow_slug` column.
 
   This can be useful if you want to link to WebFlow item directly from your Rails app:
 
