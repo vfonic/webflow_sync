@@ -93,6 +93,22 @@ For example, for `Article` model:
 
 Your WebFlow collection `slug` should be `"articles"`.
 
+If collection `slug` does not match the Rails model collection name, you can still sync with WebFlow collection, but need to specify collection slug for each `CreateItemJob` and `UpdateItemJob` call. If not specified, model name is used as a default slug name.
+
+ 1. `:model_name` - Rails model that has `webflow_site_id` and `webflow_item_id` columns
+ 2. `:collection_slug` - slug of the WebFlow collection
+ 
+```ruby
+WebflowSync::CreateItemJob.perform_now(model_name, id, collection_slug = model_name.underscore.dasherize.pluralize)
+WebflowSync::UpdateItemJob.perform_now(model_name, id, collection_slug = model_name.underscore.dasherize.pluralize)
+```
+
+For example:
+
+```ruby
+WebflowSync::CreateItemJob.perform_now('articles', 1, 'stories')
+```
+
 ### Set `webflow_site_id`
 
 There are couple of ways how you can set the `webflow_site_id` to be used.
