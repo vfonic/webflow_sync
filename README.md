@@ -5,7 +5,9 @@
 
 Keep your Ruby on Rails records in sync with WebFlow.*
 
-*Currently only one way Rails => WebFlow synchronization works
+*Currently only one way Rails => WebFlow synchronization.
+
+For the latest changes, check the [CHANGELOG.md](CHANGELOG.md).
 
 ## Installation
 
