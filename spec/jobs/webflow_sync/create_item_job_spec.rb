@@ -5,7 +5,7 @@ require 'rails_helper'
 module WebflowSync
   # rubocop:disable RSpec/MultipleMemoizedHelpers
   RSpec.describe WebflowSync::CreateItemJob, type: :job do
-    let(:collection_slug) { 'articles' }
+    let(:model_name) { 'articles' }
     let(:article) { create(:article) }
     let(:mock_webflow_api) { instance_double('mock_webflow_api', create_item: nil) }
 
@@ -39,7 +39,7 @@ module WebflowSync
       it 'does not sync' do
         allow(WebflowSync::Api).to receive(:new).and_return(mock_webflow_api)
 
-        WebflowSync::CreateItemJob.perform_now(collection_slug, record_id)
+        WebflowSync::CreateItemJob.perform_now(model_name, record_id)
 
         expect(mock_webflow_api).not_to have_received(:create_item)
       end
@@ -51,14 +51,14 @@ module WebflowSync
       it 'does not sync' do
         allow(WebflowSync::Api).to receive(:new).and_return(mock_webflow_api)
 
-        WebflowSync::CreateItemJob.perform_now(collection_slug, article.id)
+        WebflowSync::CreateItemJob.perform_now(model_name, article.id)
 
         expect(mock_webflow_api).not_to have_received(:create_item)
       end
     end
 
     it 'creates item on Webflow', vcr: { cassette_name: 'webflow/create_item' } do
-      WebflowSync::CreateItemJob.perform_now(collection_slug, article.id)
+      WebflowSync::CreateItemJob.perform_now(model_name, article.id)
 
       expect(article.reload.webflow_item_id).to be_present
     end
@@ -67,7 +67,7 @@ module WebflowSync
       let(:sync_webflow_slug) { true }
 
       it 'syncs webflow_slug', vcr: { cassette_name: 'webflow/create_item' } do
-        WebflowSync::CreateItemJob.perform_now(collection_slug, article.id)
+        WebflowSync::CreateItemJob.perform_now(model_name, article.id)
 
         expect(article.reload.webflow_slug).to be_present
       end
@@ -77,7 +77,7 @@ module WebflowSync
       let(:sync_webflow_slug) { false }
 
       it 'does not sync webflow slug', vcr: { cassette_name: 'webflow/create_item' } do
-        WebflowSync::CreateItemJob.perform_now(collection_slug, article.id)
+        WebflowSync::CreateItemJob.perform_now(model_name, article.id)
 
         expect(article.reload.webflow_slug).to be_nil
       end
@@ -89,9 +89,28 @@ module WebflowSync
       it 'publishes all domains', vcr: { cassette_name: 'webflow/create_item_and_publish' } do
         publish_uri = "https://api.webflow.com/sites/#{ENV.fetch('WEBFLOW_SITE_ID')}/publish"
 
-        WebflowSync::CreateItemJob.perform_now(collection_slug, create(:article).id)
+        WebflowSync::CreateItemJob.perform_now(model_name, create(:article).id)
 
         expect(WebMock).to have_requested(:post, publish_uri)
+      end
+    end
+
+    context 'when slug name is passed' do
+      let(:collection_slug) { 'stories' }
+
+      it 'creates item on Webflow', vcr: { cassette_name: 'webflow/create_sync_to_specified_collection' } do
+        WebflowSync::CreateItemJob.perform_now(model_name, article.id, 'stories')
+
+        expect(article.reload.webflow_item_id).to be_present
+      end
+
+      it 'syncs with correct WebFlow collection', vcr: { cassette_name: 'webflow/check_specified_collection' } do
+        result = WebflowSync::CreateItemJob.perform_now(model_name, article.id, 'stories')
+        client = Webflow::Client.new
+
+        collection = client.collection(result['_cid'])
+
+        expect(collection['slug']).to eq collection_slug
       end
     end
   end
