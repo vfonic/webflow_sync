@@ -5,7 +5,7 @@ require 'rails_helper'
 module WebflowSync
   # rubocop:disable RSpec/MultipleMemoizedHelpers
   RSpec.describe WebflowSync::UpdateItemJob, type: :job do
-    let(:collection_slug) { 'articles' }
+    let(:model_name) { 'articles' }
     let(:article) { create(:article, webflow_item_id: '60defde681813e53c6be97ea') }
     let(:mock_webflow_api) { instance_double('mock_webflow_api', update_item: nil) }
 
@@ -35,7 +35,7 @@ module WebflowSync
     it 'updates item on Webflow', vcr: { cassette_name: 'webflow/update_item' } do
       article.update!(title: 'Updated article title')
 
-      result = WebflowSync::UpdateItemJob.perform_now(collection_slug, article.id)
+      result = WebflowSync::UpdateItemJob.perform_now(model_name, article.id)
 
       expect(result['name']).to eq 'Updated article title'
     end
@@ -46,7 +46,7 @@ module WebflowSync
       it 'does not sync' do
         allow(WebflowSync::Api).to receive(:new).and_return(mock_webflow_api)
 
-        WebflowSync::UpdateItemJob.perform_now(collection_slug, record_id)
+        WebflowSync::UpdateItemJob.perform_now(model_name, record_id)
 
         expect(mock_webflow_api).not_to have_received(:update_item)
       end
@@ -58,7 +58,7 @@ module WebflowSync
       it 'does not sync' do
         allow(WebflowSync::Api).to receive(:new).and_return(mock_webflow_api)
 
-        WebflowSync::UpdateItemJob.perform_now(collection_slug, article.id)
+        WebflowSync::UpdateItemJob.perform_now(model_name, article.id)
 
         expect(mock_webflow_api).not_to have_received(:update_item)
       end
@@ -76,9 +76,31 @@ module WebflowSync
       it 'calls CreateItemJob' do
         allow(WebflowSync::Api).to receive(:new).and_return(mock_webflow_api)
 
-        WebflowSync::UpdateItemJob.perform_now(collection_slug, article.id)
+        WebflowSync::UpdateItemJob.perform_now(model_name, article.id)
 
         expect(mock_webflow_api).to have_received(:create_item)
+      end
+    end
+
+    context 'when slug name is passed' do
+      let(:collection_slug) { 'stories' }
+      let(:article) { create(:article, webflow_item_id: '60e322688be95d22c22d5041') }
+
+      it 'updates item on Webflow', vcr: { cassette_name: 'webflow/update_sync_to_specified_collection' } do
+        article.update!(title: 'Updated article title')
+
+        result = WebflowSync::UpdateItemJob.perform_now(model_name, article.id, 'stories')
+
+        expect(result['name']).to eq 'Updated article title'
+      end
+
+      it 'syncs with correct WebFlow collection', vcr: { cassette_name: 'webflow/update_check_specified_collection' } do
+        result = WebflowSync::UpdateItemJob.perform_now(model_name, article.id, 'stories')
+        client = Webflow::Client.new
+
+        collection = client.collection(result['_cid'])
+
+        expect(collection['slug']).to eq collection_slug
       end
     end
   end
