@@ -104,7 +104,7 @@ module WebflowSync
         expect(article.reload.webflow_item_id).to be_present
       end
 
-      it 'syncs with correct WebFlow collection', vcr: { cassette_name: 'webflow/check_specified_collection' } do
+      it 'syncs with correct WebFlow collection', vcr: { cassette_name: 'webflow/create_check_specified_collection' } do
         result = WebflowSync::CreateItemJob.perform_now(model_name, article.id, 'stories')
         client = Webflow::Client.new
 
