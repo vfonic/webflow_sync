@@ -82,31 +82,46 @@ Please note that this _does not_ create a WebFlow collection as that's not possi
 
 As mentioned above, you need to create the WebFlow collection yourself.
 
-Make sure that the collection `slug` matches the Rails model collection name (the output of `model_class.model_name.collection`).
+Make sure that the collection `slug` matches the Rails model collection name (the output of `model_class.model_name.to_s.underscore.dasherize.pluralize`).
 
 For example, for `Article` model:
 
 ```ruby
-> Article.model_name.collection
+> Article.model_name.to_s.underscore.dasherize.pluralize
 # => "articles"
 ```
 
 Your WebFlow collection `slug` should be `"articles"`.
 
+For Rails models named with two words, make a collection that have a space between words in the name, WebFlow sets slug by replacing space for "-".
+
+For example, for `FeaturedArticle` model:
+
+```ruby
+> FeaturedArticle.model_name.to_s.underscore.dasherize.pluralize
+# => "featured-articles"
+```
+Your WebFlow collection `slug` in this case should be `"featured-articles"`.
+
 If collection `slug` does not match the Rails model collection name, you can still sync with WebFlow collection, but need to specify collection slug for each `CreateItemJob` and `UpdateItemJob` call. If not specified, model name is used as a default slug name.
 
- 1. `:model_name` - Rails model that has `webflow_site_id` and `webflow_item_id` columns
- 2. `:collection_slug` - slug of the WebFlow collection
+ 1. `model_name` - Rails model that has `webflow_site_id` and `webflow_item_id` columns
+ 2. `collection_slug` - slug of the WebFlow collection
  
 ```ruby
-WebflowSync::CreateItemJob.perform_now(model_name, id, collection_slug = model_name.underscore.dasherize.pluralize)
-WebflowSync::UpdateItemJob.perform_now(model_name, id, collection_slug = model_name.underscore.dasherize.pluralize)
+WebflowSync::CreateItemJob.perform_now(model_name, id, collection_slug)
+WebflowSync::UpdateItemJob.perform_now(model_name, id, collection_slug)
 ```
 
 For example:
 
 ```ruby
 WebflowSync::CreateItemJob.perform_now('articles', 1, 'stories')
+```
+Or, if you want to use the default 'articles' collection_slug:
+
+```ruby
+WebflowSync::CreateItemJob.perform_now('articles', 1)
 ```
 
 ### Set `webflow_site_id`
