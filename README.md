@@ -93,7 +93,7 @@ For example, for `Article` model:
 
 Your WebFlow collection `slug` should be `"articles"`.
 
-For Rails models named with two words, make a collection that have a space between words in the name, WebFlow sets slug by replacing space for "-".
+For Rails models named with multiple words, make a collection that have a space between words in the name, WebFlow sets slug by replacing space for "-".
 
 For example, for `FeaturedArticle` model:
 
@@ -103,7 +103,14 @@ For example, for `FeaturedArticle` model:
 ```
 Your WebFlow collection `slug` in this case should be `"featured-articles"`.
 
-If collection `slug` does not match the Rails model collection name, you can still sync with WebFlow collection, but need to specify collection slug for each `CreateItemJob` and `UpdateItemJob` call. If not specified, model name is used as a default slug name.
+### Sync a Rails model with the custom collection
+
+If collection `slug` does not match the Rails model collection name, you can still sync with WebFlow collection, but need to specify collection slug for each `CreateItemJob` and `UpdateItemJob` call. If not specified, model name is used as a default slug name. 
+You would also need to: 
+* remove included `WebflowSync::ItemSync`,
+* to have `as_webflow_json` and `webflow_site_id` methods defined on the model, and
+* create custom `after_commit` callbacks for create, update and destroy actions. 
+
 
  1. `model_name` - Rails model that has `webflow_site_id` and `webflow_item_id` columns
  2. `collection_slug` - slug of the WebFlow collection
