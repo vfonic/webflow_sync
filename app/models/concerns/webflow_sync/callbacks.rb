@@ -26,8 +26,10 @@ module WebflowSync
 
       def destroy_webflow_item
         return if self.skip_webflow_sync || WebflowSync.configuration.skip_webflow_sync
+        # Make sure slug is in the pulural form, and multiple words slug separated by dashes
+        collection_slug = self.model_name.collection.underscore.dasherize
 
-        WebflowSync::DestroyItemJob.perform_later(collection_slug: self.model_name.collection,
+        WebflowSync::DestroyItemJob.perform_later(collection_slug: collection_slug,
                                                   webflow_site_id: self.webflow_site_id,
                                                   webflow_item_id: self.webflow_item_id)
       end
