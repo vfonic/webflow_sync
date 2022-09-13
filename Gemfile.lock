@@ -14,7 +14,7 @@ GIT
 PATH
   remote: .
   specs:
-    webflow_sync (3.1.2)
+    webflow_sync (4.0.0)
       rails (>= 5.0)
       webflow-ruby
 
@@ -132,7 +132,7 @@ GEM
       http-cookie (~> 1.0)
       http-form_data (~> 2.2)
       llhttp-ffi (~> 0.4.0)
-    http-cookie (1.0.4)
+    http-cookie (1.0.5)
       domain_name (~> 0.5)
     http-form_data (2.3.0)
     i18n (1.12.0)
@@ -275,7 +275,7 @@ GEM
       concurrent-ruby (~> 1.0)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.8)
+    unf_ext (0.0.8.2)
     unicode-display_width (2.2.0)
     vcr (6.0.0)
     webflow-ruby (1.2.1)
