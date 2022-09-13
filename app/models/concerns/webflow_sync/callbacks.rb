@@ -13,21 +13,21 @@ module WebflowSync
       after_commit :destroy_webflow_item, on: :destroy
 
       def create_webflow_item
-        return if self.skip_webflow_sync || WebflowSync.configuration.skip_webflow_sync
+        return if WebflowSync.configuration.skip_webflow_sync || self.skip_webflow_sync || self.webflow_site_id.blank?
 
         WebflowSync::CreateItemJob.perform_later(self.model_name.collection, self.id)
       end
 
       def update_webflow_item
-        return if self.skip_webflow_sync || WebflowSync.configuration.skip_webflow_sync
+        return if WebflowSync.configuration.skip_webflow_sync || self.skip_webflow_sync || self.webflow_site_id.blank?
 
         WebflowSync::UpdateItemJob.perform_later(self.model_name.collection, self.id)
       end
 
       def destroy_webflow_item
-        return if self.skip_webflow_sync || WebflowSync.configuration.skip_webflow_sync
+        return if WebflowSync.configuration.skip_webflow_sync || self.skip_webflow_sync || self.webflow_site_id.blank?
 
-        # Make sure slug is in the pulural form, and multiple words slug separated by dashes
+        # Make sure slug is in the plural form, and multiple words slug separated by dashes
         collection_slug = self.model_name.collection.underscore.dasherize
 
         WebflowSync::DestroyItemJob.perform_later(collection_slug: collection_slug,
