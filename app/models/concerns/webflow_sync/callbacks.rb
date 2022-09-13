@@ -30,7 +30,7 @@ module WebflowSync
         # Make sure slug is in the plural form, and multiple words slug separated by dashes
         collection_slug = self.model_name.collection.underscore.dasherize
 
-        WebflowSync::DestroyItemJob.perform_later(collection_slug: collection_slug,
+        WebflowSync::DestroyItemJob.perform_later(collection_slug:,
                                                   webflow_site_id: self.webflow_site_id,
                                                   webflow_item_id: self.webflow_item_id)
       end

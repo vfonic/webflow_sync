@@ -8,7 +8,7 @@ module WebflowSync
     # 'job_listing'.underscore.dasherize.pluralize => 'job-listings'
     def perform(model_name, id, collection_slug = model_name.underscore.dasherize.pluralize)
       model_class = model_name.underscore.classify.constantize
-      record = model_class.find_by(id: id)
+      record = model_class.find_by(id:)
       return if record.blank?
       return if record.webflow_site_id.blank?
       return WebflowSync::CreateItemJob.perform_now(model_name, id, collection_slug) if record.webflow_item_id.blank?

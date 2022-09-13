@@ -7,7 +7,7 @@ module WebflowSync
   RSpec.describe WebflowSync::CreateItemJob, type: :job do
     let(:model_name) { 'articles' }
     let(:article) { create(:article) }
-    let(:mock_webflow_api) { instance_double('mock_webflow_api', create_item: nil) }
+    let(:mock_webflow_api) { instance_double(WebflowSync::Api, create_item: nil) }
 
     let(:sync_webflow_slug) { false }
     let(:publish_on_sync) { false }

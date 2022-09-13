@@ -11,7 +11,7 @@ require 'factory_bot_rails'
 require 'pry-rails'
 # require 'super_diff/rspec-rails'
 
-Dir[File.join(File.dirname(__FILE__), 'spec_helpers/**/*.rb')].sort.each(&method(:require))
+Dir[File.join(File.dirname(__FILE__), 'spec_helpers/**/*.rb')].each(&method(:require))
 
 begin
   ActiveRecord::Migration.maintain_test_schema!

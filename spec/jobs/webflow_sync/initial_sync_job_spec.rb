@@ -5,7 +5,7 @@ require 'rails_helper'
 module WebflowSync
   RSpec.describe WebflowSync::InitialSyncJob, type: :job do
     let(:webflow_mock_client) do
-      instance_double('webflow_mock_client',
+      instance_double(Webflow::Client,
                       collections: [
                         {
                           'slug' => 'articles',
@@ -40,7 +40,7 @@ module WebflowSync
 
     context 'when collection does not exist' do
       let(:webflow_mock_client) do
-        instance_double('webflow_mock_client', collections: [])
+        instance_double(Webflow::Client, collections: [])
       end
 
       it 'raises an error when it cannot find a webflow collection' do

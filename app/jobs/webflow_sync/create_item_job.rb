@@ -12,7 +12,7 @@ module WebflowSync
     # model_name = 'articles'; id = article.id, collection_slug = 'stories'
     def perform(model_name, id, collection_slug = model_name.underscore.dasherize.pluralize)
       model_class = model_name.underscore.classify.constantize
-      record = model_class.find_by(id: id)
+      record = model_class.find_by(id:)
       return if record.blank?
       return if record.webflow_site_id.blank?
 

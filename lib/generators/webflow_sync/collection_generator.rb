@@ -12,7 +12,7 @@ module WebflowSync
       include Rails::Generators::Migration
       def add_migration
         migration_template 'migration.rb.erb', "#{migration_path}/add_webflow_item_id_to_#{table_name}.rb",
-                           migration_version: migration_version
+                           migration_version:
       end
 
       def include_item_sync_in_model_file

@@ -7,7 +7,7 @@ module WebflowSync
   RSpec.describe WebflowSync::UpdateItemJob, type: :job do
     let(:model_name) { 'articles' }
     let(:article) { create(:article, webflow_item_id: '60defde681813e53c6be97ea') }
-    let(:mock_webflow_api) { instance_double('mock_webflow_api', update_item: nil) }
+    let(:mock_webflow_api) { instance_double(WebflowSync::Api, update_item: nil) }
 
     let(:sync_webflow_slug) { false }
     let(:webflow_site_id) { ENV.fetch('WEBFLOW_SITE_ID') }
@@ -66,7 +66,7 @@ module WebflowSync
 
     context 'when webflow_item_id is nil' do
       let(:mock_webflow_api) do
-        instance_double('mock_webflow_api', update_item: nil, create_item: nil)
+        instance_double(WebflowSync::Api, update_item: nil, create_item: nil)
       end
 
       before(:each) do

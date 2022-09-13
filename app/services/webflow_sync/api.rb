@@ -82,7 +82,7 @@ module WebflowSync
     def publish
       return unless WebflowSync.configuration.publish_on_sync
 
-      response = make_request(:publish, site_id, domain_names: domain_names)
+      response = make_request(:publish, site_id, domain_names:)
 
       puts "Publish all domains for Webflow site with id: #{site_id}"
       response
