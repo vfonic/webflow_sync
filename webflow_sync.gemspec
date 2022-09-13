@@ -3,7 +3,7 @@
 require_relative 'lib/webflow_sync/version'
 
 Gem::Specification.new do |spec|
-  spec.required_ruby_version = '>= 2.6'
+  spec.required_ruby_version = '>= 3.1'
   spec.name        = 'webflow_sync'
   spec.version     = WebflowSync::VERSION
   spec.authors     = ['Viktor']
