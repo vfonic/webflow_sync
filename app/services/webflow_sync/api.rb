@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'webflow/client'
+require 'webflow/error'
+
 module WebflowSync
   class Api
     attr_reader :site_id
