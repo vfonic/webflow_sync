@@ -14,7 +14,7 @@ GIT
 PATH
   remote: .
   specs:
-    webflow_sync (4.0.1)
+    webflow_sync (4.0.2)
       rails (>= 5.0)
       webflow-ruby
 
@@ -127,7 +127,7 @@ GEM
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
     hashdiff (1.0.1)
-    http (5.0.4)
+    http (5.1.0)
       addressable (~> 2.8)
       http-cookie (~> 1.0)
       http-form_data (~> 2.2)
