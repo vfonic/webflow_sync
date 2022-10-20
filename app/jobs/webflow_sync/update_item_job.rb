@@ -11,8 +11,7 @@ module WebflowSync
       record = model_class.find_by(id:)
       return if record.blank?
       return if record.webflow_site_id.blank?
-      # override collection_slug if it is passed as an argument
-      record.try(:collection_slug) ? collection_slug = record.collection_slug : collection_slug
+      collection_slug ||= record.try(:collection_slug) || model_name.underscore.dasherize.pluralize
 
       return WebflowSync::CreateItemJob.perform_now(model_name, id, collection_slug) if record.webflow_item_id.blank?
 
