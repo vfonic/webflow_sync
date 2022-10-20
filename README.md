@@ -230,9 +230,15 @@ This gem silently "fails" (does nothing) when `webflow_site_id` or `webflow_item
 
 PRs welcome!
 
+To run RuboCop style check and RSpec tests run:
+
+```sh
+bundle exec rake
+```
+
 ## Thanks and Credits
 
-This gem wouldn't be possible without the amazing work of [webflow-ruby](https://github.com/penseo/webflow-ruby) gem. Thank you, @phoet!
+This gem wouldn't be possible without the amazing work of [webflow-ruby](https://github.com/penseo/webflow-ruby) gem. Thank you, [@phoet](https://github.com/phoet)!
 
 
 ## License
