@@ -34,7 +34,7 @@ jobs:
           RAILS_ENV: test
 
       - name: Run style check
-        run: bundle exec rails style
+        run: bundle exec rails style:rubocop:run
 
       - name: Run tests
         run: bundle exec rspec
