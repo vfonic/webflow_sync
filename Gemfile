@@ -11,3 +11,13 @@ group :development do
 end
 
 gem 'stylecheck', github: 'vfonic/stylecheck', require: false
+
+gem 'dotenv-rails'
+gem 'factory_bot_rails'
+gem 'guard-rspec'
+gem 'net-smtp'
+gem 'pry-rails'
+gem 'rspec-rails'
+gem 'sprockets-rails'
+gem 'vcr'
+gem 'webmock'

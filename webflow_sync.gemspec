@@ -17,16 +17,9 @@ Gem::Specification.new do |spec|
 
   spec.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
 
-  spec.add_dependency 'rails', '>= 5.0'
+  spec.add_dependency 'rails', '>= 7.0'
+  spec.add_dependency 'sprockets-rails'
   spec.add_dependency 'webflow-ruby'
 
-  spec.add_development_dependency 'dotenv-rails'
-  spec.add_development_dependency 'factory_bot_rails'
-  spec.add_development_dependency 'guard-rspec'
-  spec.add_development_dependency 'net-smtp'
-  spec.add_development_dependency 'pry-rails'
-  spec.add_development_dependency 'rspec-rails'
-  spec.add_development_dependency 'vcr'
-  spec.add_development_dependency 'webmock'
   spec.metadata['rubygems_mfa_required'] = 'true'
 end

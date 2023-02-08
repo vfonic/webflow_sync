@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 module WebflowSync
-  RSpec.describe WebflowSync::InitialSyncJob, type: :job do
+  RSpec.describe WebflowSync::InitialSyncJob do
     let(:webflow_mock_client) do
       instance_double(Webflow::Client,
                       collections: [

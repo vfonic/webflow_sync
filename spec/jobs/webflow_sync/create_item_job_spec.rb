@@ -4,7 +4,7 @@ require 'rails_helper'
 
 module WebflowSync
   # rubocop:disable RSpec/MultipleMemoizedHelpers
-  RSpec.describe WebflowSync::CreateItemJob, type: :job do
+  RSpec.describe WebflowSync::CreateItemJob do
     let(:model_name) { 'articles' }
     let(:article) { create(:article) }
     let(:mock_webflow_api) { instance_double(WebflowSync::Api, create_item: nil) }

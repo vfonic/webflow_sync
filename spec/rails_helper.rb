@@ -8,6 +8,7 @@ require 'rspec/rails'
 
 # require 'database_cleaner'
 require 'factory_bot_rails'
+require_relative './factories'
 require 'pry-rails'
 # require 'super_diff/rspec-rails'
 
@@ -21,7 +22,7 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  config.fixture_path = Rails.root.join '/spec/fixtures'
   config.include FactoryBot::Syntax::Methods
 
   config.use_transactional_fixtures = true

@@ -14,5 +14,5 @@ require 'stylecheck/rake_tasks' unless Rails.env.production?
 load 'rspec/rails/tasks/rspec.rake'
 task :default do
   Rake::Task['style:rubocop:run'].execute
-  Rake::Task['rspec'].execute
+  Rake::Task['spec'].execute
 end

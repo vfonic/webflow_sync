@@ -42,7 +42,7 @@ module WebflowSync
       response = make_request(:create_item, collection['_id'],
                               record.as_webflow_json.reverse_merge(_archived: false, _draft: false), live: true)
 
-      if update_record_colums(record, response)
+      if update_record_columns(record, response)
         # When the item is created, sometimes changes are not visible throughout the WebFlow site immediately (probably due to some caching).
         # To make this change immediately visible from the WebFlow site, we need to publish the site.
         publish
@@ -121,7 +121,7 @@ module WebflowSync
         response
       end
 
-      def update_record_colums(record, response)
+      def update_record_columns(record, response)
         # use update_column to skip callbacks to prevent WebflowSync::ItemSync to kick off
         if WebflowSync.configuration.sync_webflow_slug
           record.update_columns(webflow_item_id: response['_id'], webflow_slug: response['slug']) # rubocop:disable Rails/SkipsModelValidations

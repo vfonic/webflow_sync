@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 module WebflowSync
-  RSpec.describe WebflowSync::DestroyItemJob, type: :job do
+  RSpec.describe WebflowSync::DestroyItemJob do
     let(:article) { create(:article) }
     let(:mock_webflow_api) { instance_double(WebflowSync::Api, delete_item: nil) }
     let(:webflow_site_id) { ENV.fetch('WEBFLOW_SITE_ID') }
