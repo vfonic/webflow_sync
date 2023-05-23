@@ -3,3 +3,5 @@ inherit_gem:
 
 Rails/EnvironmentVariableAccess:
   AllowReads: true
+Layout/LineLength:
+  Max: 140

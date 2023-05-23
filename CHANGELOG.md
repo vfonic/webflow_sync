@@ -1,3 +1,9 @@
+# 6.1.1
+
+- Fix: Allow calling `WebflowSync::Api.new` without passing in `site_id` argument.
+- Add class methods to `WebflowSync::Api` class for all methods that don't require `site_id` argument: `get_all_items`, `get_item`, `create_item`, `update_item`, `delete_item`, `sites`
+- This allows us to call `WebflowSync::Api.new.sites` or even shorter `WebflowSync::Api.sites`.
+
 # 6.1.0
 
 - Make sure all Webflow API calls catch "Rate limit hit" error and retry
