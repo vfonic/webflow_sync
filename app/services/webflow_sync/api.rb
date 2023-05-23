@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module WebflowSync
-  class Api # rubocop:disable Metrics/ClassLength
+  class Api
     attr_reader :site_id
 
     def initialize(site_id = nil)
@@ -30,14 +30,11 @@ module WebflowSync
       items
     end
 
-    def self.get_all_items(collection_slug:, page_limit: 100) = new.get_all_items(collection_slug:, page_limit:)
-
     def get_item(collection_slug, webflow_item_id)
       collection = find_webflow_collection(collection_slug)
 
       make_request(:item, collection['_id'], webflow_item_id)
     end
-    def self.get_item(collection_slug, webflow_item_id) = new.get_item(collection_slug, webflow_item_id)
 
     def create_item(record, collection_slug)
       collection = find_webflow_collection(collection_slug)
@@ -53,8 +50,6 @@ module WebflowSync
       end
     end
 
-    def self.create_item(record, collection_slug) = new.create_item(record, collection_slug)
-
     def update_item(record, collection_slug)
       collection = find_webflow_collection(collection_slug)
       response = make_request(:update_item, { '_cid' => collection['_id'], '_id' => record.webflow_item_id },
@@ -63,8 +58,6 @@ module WebflowSync
       puts "Updated #{record.inspect} in #{collection_slug}"
       response
     end
-
-    def self.update_item(record, collection_slug) = new.update_item(record, collection_slug)
 
     def delete_item(collection_slug, webflow_item_id)
       collection = find_webflow_collection(collection_slug)
@@ -78,8 +71,6 @@ module WebflowSync
       puts "Deleted #{webflow_item_id} from #{collection_slug}"
       response
     end
-
-    def self.delete_item(collection_slug, webflow_item_id) = new.delete_item(collection_slug, webflow_item_id)
 
     def publish
       response = make_request(:publish, site_id, domain_names:)

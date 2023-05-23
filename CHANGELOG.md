@@ -1,3 +1,7 @@
+# 6.1.2
+
+- Fix: Remove class methods that _do_ depend on `site_id` argument: `get_all_items`, `get_item`, `create_item`, `update_item`, `delete_item`
+
 # 6.1.1
 
 - Fix: Allow calling `WebflowSync::Api.new` without passing in `site_id` argument.
