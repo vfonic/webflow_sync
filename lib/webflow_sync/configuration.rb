@@ -7,7 +7,6 @@ module WebflowSync
     def configure
       self.configuration ||= Configuration.new
 
-      self.configuration.publish_on_sync = true
       self.configuration.skip_webflow_sync = !Rails.env.production?
 
       yield(self.configuration)
@@ -21,7 +20,7 @@ module WebflowSync
   end
 
   class Configuration
-    attr_accessor :skip_webflow_sync, :webflow_site_id, :sync_webflow_slug, :publish_on_sync
+    attr_accessor :skip_webflow_sync, :webflow_site_id, :sync_webflow_slug
     attr_reader :api_token
 
     def api_token=(value)

@@ -10,16 +10,13 @@ module WebflowSync
     let(:mock_webflow_api) { instance_double(WebflowSync::Api, create_item: nil) }
 
     let(:sync_webflow_slug) { false }
-    let(:publish_on_sync) { false }
     let(:webflow_site_id) { ENV.fetch('WEBFLOW_SITE_ID') }
 
     before(:each) do
-      @old_publish_on_sync = WebflowSync.configuration.publish_on_sync
       @old_sync_webflow_slug = WebflowSync.configuration.sync_webflow_slug
       @old_webflow_site_id = WebflowSync.configuration.webflow_site_id
 
       WebflowSync.configure do |config|
-        config.publish_on_sync = publish_on_sync
         config.sync_webflow_slug = sync_webflow_slug
         config.webflow_site_id = webflow_site_id
       end
@@ -27,7 +24,6 @@ module WebflowSync
 
     after(:each) do
       WebflowSync.configure do |config|
-        config.publish_on_sync = @old_publish_on_sync
         config.sync_webflow_slug = @old_sync_webflow_slug
         config.webflow_site_id = @old_webflow_site_id
       end
@@ -80,18 +76,6 @@ module WebflowSync
         WebflowSync::CreateItemJob.perform_now(model_name, article.id)
 
         expect(article.reload.webflow_slug).to be_nil
-      end
-    end
-
-    context 'when publish_on_sync is true' do
-      let(:publish_on_sync) { true }
-
-      it 'publishes all domains', vcr: { cassette_name: 'webflow/create_item_and_publish' } do
-        publish_uri = "https://api.webflow.com/sites/#{ENV.fetch('WEBFLOW_SITE_ID')}/publish"
-
-        WebflowSync::CreateItemJob.perform_now(model_name, create(:article).id)
-
-        expect(WebMock).to have_requested(:post, publish_uri)
       end
     end
 

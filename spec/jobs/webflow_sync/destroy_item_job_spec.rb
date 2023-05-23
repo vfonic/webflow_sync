@@ -33,7 +33,7 @@ module WebflowSync
     end
 
     context 'when webflow_site_id is set' do
-      it 'destroys item on Webflow and publish all domains', vcr: { cassette_name: 'webflow/delete_item' } do
+      it 'destroys item on Webflow', vcr: { cassette_name: 'webflow/delete_item' } do
         result = WebflowSync::DestroyItemJob.perform_now(collection_slug: 'articles',
                                                          webflow_site_id:,
                                                          webflow_item_id: '60defde69683113ebb79e864')

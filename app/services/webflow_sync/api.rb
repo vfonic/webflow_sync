@@ -37,16 +37,12 @@ module WebflowSync
       make_request(:item, collection['_id'], webflow_item_id)
     end
 
-    def create_item(record, collection_slug) # rubocop:disable Metrics/MethodLength
+    def create_item(record, collection_slug)
       collection = find_webflow_collection(collection_slug)
       response = make_request(:create_item, collection['_id'],
                               record.as_webflow_json.reverse_merge(_archived: false, _draft: false), live: true)
 
       if update_record_columns(record, response)
-        # When the item is created, sometimes changes are not visible throughout the WebFlow site immediately (probably due to some caching).
-        # To make this change immediately visible from the WebFlow site, we need to publish the site.
-        publish
-
         puts "Created #{record.inspect} in #{collection_slug}"
         response
       else
@@ -60,28 +56,24 @@ module WebflowSync
       response = make_request(:update_item, { '_cid' => collection['_id'], '_id' => record.webflow_item_id },
                               record.as_webflow_json.reverse_merge(_archived: false, _draft: false), live: true)
 
-      # When the item is updated, sometimes changes are not visible throughout the WebFlow site immediately (probably due to some caching).
-      # To make this change immediately visible from the WebFlow site, we need to publish the site.
-      publish
-
       puts "Updated #{record.inspect} in #{collection_slug}"
       response
     end
 
     def delete_item(collection_slug, webflow_item_id)
       collection = find_webflow_collection(collection_slug)
+      # deleting items from Webflow doesn't work as expected.
+      # if we delete without `live: true`, the item will stay visible on the site until the site is published again
+      # if we delete with `live: true`, the item will be set as draft and not visible on the site, but it will be visible in the Webflow CMS
+      # we then call delete again to remove the item from Webflow CMS
+      make_request(:delete_item, { '_cid' => collection['_id'], '_id' => webflow_item_id }, live: true)
       response = make_request(:delete_item, { '_cid' => collection['_id'], '_id' => webflow_item_id })
-      # When the item is removed from WebFlow, it's still visible throughout the WebFlow site (probably due to some caching).
-      # To remove the item immediately from the WebFlow site, we need to publish the site.
-      publish
 
       puts "Deleted #{webflow_item_id} from #{collection_slug}"
       response
     end
 
     def publish
-      return unless WebflowSync.configuration.publish_on_sync
-
       response = make_request(:publish, site_id, domain_names:)
 
       puts "Publish all domains for Webflow site with id: #{site_id}"
@@ -130,18 +122,19 @@ module WebflowSync
         end
       end
 
-      def make_request(method_name, *args, retries: 0, **kwargs)
+      def make_request(method_name, *args, **kwargs)
         if kwargs.present?
           client.public_send(method_name, *args, **kwargs)
         else
           client.public_send(method_name, *args)
         end
       rescue Webflow::Error => e
-        raise if retries >= 8 || e.message.strip != 'Rate limit hit'
+        raise unless e.message.strip == 'Rate limit hit'
 
-        puts "Sleeping #{2**retries} seconds"
-        sleep 2**retries
-        make_request(method_name, *args, retries: retries + 1, **kwargs)
+        puts 'Sleeping 10 seconds'
+        sleep 10
+
+        make_request(method_name, *args, **kwargs)
       end
   end
 end

@@ -11,8 +11,7 @@ require 'bundler/gem_tasks'
 
 require 'stylecheck/rake_tasks' unless Rails.env.production?
 
-load 'rspec/rails/tasks/rspec.rake'
+load 'rspec/rails/tasks/rspec.rake' # runs all RSpec tests
 task :default do
   Rake::Task['style:rubocop:run'].execute
-  Rake::Task['spec'].execute
 end

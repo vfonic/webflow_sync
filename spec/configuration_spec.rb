@@ -42,30 +42,5 @@ module WebflowSync
         expect(WebflowSync.configuration.sync_webflow_slug).to be(true)
       end
     end
-
-    context 'when publish_on_sync is true' do
-      before(:each) do
-        @publish_on_sync = WebflowSync.configuration.publish_on_sync
-        WebflowSync.configure do |config|
-          config.publish_on_sync = true
-        end
-      end
-
-      after(:each) do
-        WebflowSync.configure do |config|
-          config.publish_on_sync = @publish_on_sync
-        end
-      end
-
-      it 'is true' do
-        expect(WebflowSync.configuration.publish_on_sync).to be(true)
-      end
-    end
-
-    context 'when publish_on is not set' do
-      it 'defaults to true' do
-        expect(WebflowSync.configuration.publish_on_sync).to be(true)
-      end
-    end
   end
 end

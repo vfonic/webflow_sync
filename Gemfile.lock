@@ -11,11 +11,19 @@ GIT
       rubocop-rake
       rubocop-rspec
 
+GIT
+  remote: https://github.com/vfonic/webflow-ruby.git
+  revision: 12e09aa537ca37d01808a9a42916f39c516b9ca5
+  branch: allow-live-delete
+  specs:
+    webflow-ruby (1.2.1)
+      http
+
 PATH
   remote: .
   specs:
-    webflow_sync (5.0.0)
-      rails (>= 7.0)
+    webflow_sync (6.0.0)
+      rails (>= 5.0)
       sprockets-rails
       webflow-ruby
 
@@ -295,8 +303,6 @@ GEM
     unf_ext (0.0.8.2)
     unicode-display_width (2.4.2)
     vcr (6.1.0)
-    webflow-ruby (1.2.1)
-      http
     webmock (3.18.1)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
@@ -324,6 +330,7 @@ DEPENDENCIES
   sqlite3
   stylecheck!
   vcr
+  webflow-ruby!
   webflow_sync!
   webmock
 

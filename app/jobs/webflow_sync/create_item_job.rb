@@ -15,6 +15,7 @@ module WebflowSync
       record = model_class.find_by(id:)
       return if record.blank?
       return if record.webflow_site_id.blank?
+      return WebflowSync::UpdateItemJob.perform_now(model_name, id, collection_slug) if record.webflow_item_id.present?
 
       WebflowSync::Api.new(record.webflow_site_id).create_item(record, collection_slug)
     end

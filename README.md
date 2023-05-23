@@ -11,9 +11,12 @@ For the latest changes, check the [CHANGELOG.md](CHANGELOG.md).
 
 ## Installation
 
-Add this line to your application's Gemfile:
+This gem currently only works with a fork of 'webflow-ruby' gem.
+
+Add these lines to your application's Gemfile:
 
 ```ruby
+gem 'webflow-ruby', github: 'vfonic/webflow-ruby', branch: 'allow-live-delete'
 gem 'webflow_sync'
 ```
 
@@ -45,8 +48,7 @@ In `config/initializers/webflow_sync.rb` you can specify configuration options:
 1. `api_token`
 2. `webflow_site_id`
 3. `skip_webflow_sync` - skip synchronization for different environments.
-4. `publish_on_sync` - republish all domains after create, update and destroy actions.
-5. `sync_webflow_slug` - save slug generated on WebFlow to the Rails model, `webflow_slug` column.
+4. `sync_webflow_slug` - save slug generated on WebFlow to the Rails model, `webflow_slug` column.
 
   This can be useful if you want to link to WebFlow item directly from your Rails app:
 
