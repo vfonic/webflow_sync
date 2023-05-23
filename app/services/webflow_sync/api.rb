@@ -80,6 +80,8 @@ module WebflowSync
       response
     end
 
+    def sites = make_request(:sites)
+
     private
 
       def client
@@ -87,7 +89,7 @@ module WebflowSync
       end
 
       def collections
-        @collections ||= client.collections(site_id)
+        @collections ||= make_request(:collections, site_id)
       end
 
       def domain_names
@@ -98,16 +100,16 @@ module WebflowSync
         # client.domains request does not return the default domain
         # We need to get default domain name if there are no custom domains set to avoid error:
         # Webflow::Error: Domain not found for site
-        site = client.site(site_id)
-        default_domain_name = "#{site['shortName']}.webflow.io"
+        site = make_request(:site, site_id)
+        default_domain_name = "#{site.fetch('shortName')}.webflow.io"
         names = [default_domain_name]
-        client.domains(site_id).each { |domain| names << domain['name'] }
+        make_request(:domains, site_id).each { |domain| names << domain.fetch('name') }
 
         names
       end
 
       def find_webflow_collection(collection_slug)
-        response = collections.find { |collection| collection['slug'] == collection_slug }
+        response = collections.find { |collection| collection.fetch('slug') == collection_slug }
         raise "Cannot find collection #{collection_slug} for Webflow site #{site_id}" unless response
 
         response

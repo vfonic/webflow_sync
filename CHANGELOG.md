@@ -1,3 +1,8 @@
+# 6.1.0
+
+- Make sure all Webflow API calls catch "Rate limit hit" error and retry
+- Add `WebflowSync::Api.sites` method to allow fetching all Webflow sites with retrying on rate limiting
+
 # 6.0.0
 
 - As long as the error is `Rate limit hit`, sleep 10 seconds and retry the request
