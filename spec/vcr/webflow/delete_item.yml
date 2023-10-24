@@ -25,7 +25,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 24 Oct 2023 19:35:33 GMT
+      - Tue, 24 Oct 2023 22:10:48 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
@@ -41,14 +41,106 @@ http_interactions:
       X-Ratelimit-Remaining:
       - '59'
       X-Response-Time:
-      - 104.079ms
+      - 68.574ms
     body:
       encoding: UTF-8
       string: '{"collections":[{"id":"653816abb6e95dab52f53077","displayName":"Articles","singularName":"Article","slug":"articles","createdOn":"2023-10-24T19:10:35.092Z","lastUpdated":"2023-10-24T19:10:35.260Z"},{"id":"653818838961b39ddebe0641","displayName":"Stories","singularName":"Story","slug":"stories","createdOn":"2023-10-24T19:18:27.801Z","lastUpdated":"2023-10-24T19:18:27.978Z"}]}'
-  recorded_at: Tue, 24 Oct 2023 19:35:30 GMT
+  recorded_at: Tue, 24 Oct 2023 22:10:45 GMT
+- request:
+    method: patch
+    uri: https://api.webflow.com/v2/collections/653816abb6e95dab52f53077/items/65382196f852bb061babf6c1
+    body:
+      encoding: UTF-8
+      string: '{"isArchived":true,"isDraft":false}'
+    headers:
+      Authorization:
+      - Bearer <WEBFLOW_API_TOKEN>
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      Connection:
+      - close
+      Host:
+      - api.webflow.com
+      User-Agent:
+      - http.rb/5.1.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 24 Oct 2023 22:10:50 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '287'
+      Connection:
+      - close
+      Etag:
+      - W/"11f-zHWWyKnAkGWxjb5AZ4R9YqjFIcc"
+      Retry-After:
+      - '60'
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '58'
+      X-Response-Time:
+      - 1178.954ms
+    body:
+      encoding: UTF-8
+      string: '{"id":"65382196f852bb061babf6c1","cmsLocaleId":"653816aa76146f23a78743c8","lastPublished":"2023-10-24T20:31:30.921Z","lastUpdated":"2023-10-24T22:10:50.070Z","createdOn":"2023-10-24T19:57:10.041Z","isArchived":true,"isDraft":false,"fieldData":{"name":"MyString","slug":"mystring-96463"}}'
+  recorded_at: Tue, 24 Oct 2023 22:10:47 GMT
+- request:
+    method: post
+    uri: https://api.webflow.com/v2/collections/653816abb6e95dab52f53077/items/publish
+    body:
+      encoding: UTF-8
+      string: '{"itemIds":["65382196f852bb061babf6c1"]}'
+    headers:
+      Authorization:
+      - Bearer <WEBFLOW_API_TOKEN>
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      Connection:
+      - close
+      Host:
+      - api.webflow.com
+      User-Agent:
+      - http.rb/5.1.1
+  response:
+    status:
+      code: 202
+      message: Accepted
+    headers:
+      Date:
+      - Tue, 24 Oct 2023 22:10:51 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '61'
+      Connection:
+      - close
+      Etag:
+      - W/"3d-23bKQpFFZUx+409y6UMenFVzBgE"
+      Retry-After:
+      - '58'
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '57'
+      X-Response-Time:
+      - 212.530ms
+    body:
+      encoding: UTF-8
+      string: '{"publishedItemIds":["65382196f852bb061babf6c1"],"errors":[]}'
+  recorded_at: Tue, 24 Oct 2023 22:10:48 GMT
 - request:
     method: delete
-    uri: https://api.webflow.com/v2/collections/653816abb6e95dab52f53077/items/65381713d7c46e096ada14c3
+    uri: https://api.webflow.com/v2/collections/653816abb6e95dab52f53077/items/65382196f852bb061babf6c1
     body:
       encoding: UTF-8
       string: ''
@@ -71,23 +163,23 @@ http_interactions:
       message: No Content
     headers:
       Date:
-      - Tue, 24 Oct 2023 19:36:54 GMT
+      - Tue, 24 Oct 2023 22:10:52 GMT
       Connection:
       - close
       Etag:
       - W/"a-bAsFyilMr4Ra1hIU5PyoyFRunpI"
       Retry-After:
-      - '60'
+      - '57'
       X-Ratelimit-Limit:
       - '60'
       X-Ratelimit-Remaining:
-      - '59'
+      - '56'
       X-Response-Time:
-      - 1143.762ms
+      - 532.402ms
     body:
       encoding: ASCII-8BIT
       string: ''
-  recorded_at: Tue, 24 Oct 2023 19:36:51 GMT
+  recorded_at: Tue, 24 Oct 2023 22:10:49 GMT
 - request:
     method: get
     uri: https://api.webflow.com/v2/sites/<WEBFLOW_SITE_ID>/collections
@@ -113,7 +205,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 24 Oct 2023 19:43:43 GMT
+      - Tue, 24 Oct 2023 22:10:52 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
@@ -123,20 +215,20 @@ http_interactions:
       Etag:
       - W/"179-Ob+JKqqmWqqZ3y2SzFH9qGm3VNc"
       Retry-After:
-      - '51'
+      - '56'
       X-Ratelimit-Limit:
       - '60'
       X-Ratelimit-Remaining:
-      - '57'
+      - '55'
       X-Response-Time:
-      - 1453.650ms
+      - 55.307ms
     body:
       encoding: UTF-8
       string: '{"collections":[{"id":"653816abb6e95dab52f53077","displayName":"Articles","singularName":"Article","slug":"articles","createdOn":"2023-10-24T19:10:35.092Z","lastUpdated":"2023-10-24T19:10:35.260Z"},{"id":"653818838961b39ddebe0641","displayName":"Stories","singularName":"Story","slug":"stories","createdOn":"2023-10-24T19:18:27.801Z","lastUpdated":"2023-10-24T19:18:27.978Z"}]}'
-  recorded_at: Tue, 24 Oct 2023 19:43:40 GMT
+  recorded_at: Tue, 24 Oct 2023 22:10:49 GMT
 - request:
     method: get
-    uri: https://api.webflow.com/v2/collections/653816abb6e95dab52f53077/items/65381713d7c46e096ada14c3
+    uri: https://api.webflow.com/v2/collections/653816abb6e95dab52f53077/items/65382196f852bb061babf6c1
     body:
       encoding: UTF-8
       string: ''
@@ -159,7 +251,7 @@ http_interactions:
       message: Not Found
     headers:
       Date:
-      - Tue, 24 Oct 2023 19:43:46 GMT
+      - Tue, 24 Oct 2023 22:10:53 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
@@ -169,15 +261,15 @@ http_interactions:
       Etag:
       - W/"6c-2nfC/dZTSQtY8JPEA6j14nf0UYA"
       Retry-After:
-      - '48'
+      - '55'
       X-Ratelimit-Limit:
       - '60'
       X-Ratelimit-Remaining:
-      - '56'
+      - '54'
       X-Response-Time:
-      - 1814.407ms
+      - 40.753ms
     body:
       encoding: UTF-8
       string: '{"message":"Requested resource not found","code":"resource_not_found","externalReference":null,"details":[]}'
-  recorded_at: Tue, 24 Oct 2023 19:43:42 GMT
+  recorded_at: Tue, 24 Oct 2023 22:10:50 GMT
 recorded_with: VCR 6.1.0

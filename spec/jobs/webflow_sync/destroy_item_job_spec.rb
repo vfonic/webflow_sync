@@ -30,7 +30,7 @@ module WebflowSync
 
     context 'when webflow_site_id is set' do
       it 'destroys item on Webflow', vcr: { cassette_name: 'webflow/delete_item' } do
-        webflow_item_id = '65381713d7c46e096ada14c3'
+        webflow_item_id = '65382196f852bb061babf6c1'
         WebflowSync::DestroyItemJob.perform_now(collection_slug: 'articles', webflow_site_id:, webflow_item_id:)
 
         expect do
