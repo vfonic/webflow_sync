@@ -6,7 +6,7 @@ module WebflowSync
   # rubocop:disable RSpec/MultipleMemoizedHelpers
   RSpec.describe WebflowSync::UpdateItemJob do
     let(:model_name) { 'articles' }
-    let(:article) { create(:article, webflow_item_id: '60defde681813e53c6be97ea') }
+    let(:article) { create(:article, webflow_item_id: '653817458c993c9a49fc411b') }
     let(:mock_webflow_api) { instance_double(WebflowSync::Api, update_item: nil) }
 
     let(:sync_webflow_slug) { false }
@@ -30,11 +30,23 @@ module WebflowSync
     end
 
     it 'updates item on Webflow', vcr: { cassette_name: 'webflow/update_item' } do
-      article.update!(title: 'Updated article title')
+      title = 'Updated article title'
+      article.update!(title:)
 
       result = WebflowSync::UpdateItemJob.perform_now(model_name, article.id)
 
-      expect(result['name']).to eq 'Updated article title'
+      expect(result.dig('fieldData', 'name')).to eq title
+    end
+
+    it 'updates and publishes item on Webflow', vcr: { cassette_name: 'webflow/update_and_publish_item' } do # rubocop:disable RSpec/ExampleLength
+      title = 'New live title'
+      article.update!(title:)
+
+      result = WebflowSync::UpdateItemJob.perform_now(model_name, article.id)
+
+      item = WebflowSync::Api.new(webflow_site_id).get_item(model_name, article.webflow_item_id)
+      expect(result.dig('fieldData', 'name')).to eq title
+      expect(Time.zone.parse(item['lastPublished'])).to be >= Time.zone.parse(item['lastUpdated'])
     end
 
     context 'when record does not exist' do
@@ -81,23 +93,14 @@ module WebflowSync
 
     context 'when slug name is passed' do
       let(:collection_slug) { 'stories' }
-      let(:article) { create(:article, webflow_item_id: '60e322688be95d22c22d5041') }
+      let(:article) { create(:article, webflow_item_id: '65381893e6d401cdd3f3a363') }
 
       it 'updates item on Webflow', vcr: { cassette_name: 'webflow/update_sync_to_specified_collection' } do
         article.update!(title: 'Updated article title')
 
         result = WebflowSync::UpdateItemJob.perform_now(model_name, article.id, 'stories')
 
-        expect(result['name']).to eq 'Updated article title'
-      end
-
-      it 'syncs with correct WebFlow collection', vcr: { cassette_name: 'webflow/update_check_specified_collection' } do
-        result = WebflowSync::UpdateItemJob.perform_now(model_name, article.id, 'stories')
-        client = Webflow::Client.new
-
-        collection = client.collection(result['_cid'])
-
-        expect(collection['slug']).to eq collection_slug
+        expect(result.dig('fieldData', 'name')).to eq 'Updated article title'
       end
     end
   end

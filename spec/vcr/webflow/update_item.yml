@@ -2,231 +2,142 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.webflow.com/sites/<WEBFLOW_SITE_ID>/collections
+    uri: https://api.webflow.com/v2/sites/<WEBFLOW_SITE_ID>/collections
     body:
       encoding: UTF-8
       string: ''
     headers:
       Authorization:
       - Bearer <WEBFLOW_API_TOKEN>
-      Accept-Version:
-      - 1.0.0
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
       Connection:
       - close
       Host:
       - api.webflow.com
       User-Agent:
-      - http.rb/5.0.1
+      - http.rb/5.1.1
   response:
     status:
       code: 200
       message: OK
     headers:
+      Date:
+      - Tue, 24 Oct 2023 19:20:21 GMT
       Content-Type:
       - application/json; charset=utf-8
-      Date:
-      - Fri, 02 Jul 2021 12:15:09 GMT
-      Etag:
-      - W/"2c3-2284ab52"
-      X-Ratelimit-Limit:
-      - '60'
-      X-Ratelimit-Remaining:
-      - '59'
-      X-Response-Time:
-      - 30.489ms
-      X-Wf-Rid:
-      - '09534bc2-e1da-454e-afc9-f647492e1aa4'
       Content-Length:
-      - '707'
-      Connection:
-      - Close
-    body:
-      encoding: UTF-8
-      string: '[{"_id":"60dec92f438fac75a4c6f319","lastUpdated":"2021-07-02T08:07:12.671Z","createdOn":"2021-06-21T13:51:07.981Z","name":"Events","slug":"events","singularName":"Event"},{"_id":"60dec92f438facb188c6f318","lastUpdated":"2021-07-02T08:07:12.664Z","createdOn":"2021-06-16T17:17:46.482Z","name":"Stories","slug":"stories","singularName":"Story"},{"_id":"60dedb8820c1f553b0e817cf","lastUpdated":"2021-07-02T09:44:10.730Z","createdOn":"2021-07-02T09:25:28.723Z","name":"Job
-        Listings","slug":"job-listings","singularName":"Job Listing"},{"_id":"60def7d3372f766c163734c2","lastUpdated":"2021-07-02T11:48:19.748Z","createdOn":"2021-07-02T11:26:11.474Z","name":"Articles","slug":"articles","singularName":"Article"}]'
-  recorded_at: Fri, 02 Jul 2021 12:15:09 GMT
-- request:
-    method: get
-    uri: https://api.webflow.com/sites/<WEBFLOW_SITE_ID>/collections
-    body:
-      encoding: UTF-8
-      string: ''
-    headers:
-      Authorization:
-      - Bearer <WEBFLOW_API_TOKEN>
-      Accept-Version:
-      - 1.0.0
+      - '377'
       Connection:
       - close
-      Host:
-      - api.webflow.com
-      User-Agent:
-      - http.rb/5.0.1
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Fri, 02 Jul 2021 12:15:09 GMT
       Etag:
-      - W/"2c3-2284ab52"
-      X-Ratelimit-Limit:
-      - '60'
-      X-Ratelimit-Remaining:
-      - '58'
-      X-Response-Time:
-      - 33.118ms
-      X-Wf-Rid:
-      - 19036574-1294-4244-be53-596c4451a723
-      Content-Length:
-      - '707'
-      Connection:
-      - Close
-    body:
-      encoding: UTF-8
-      string: '[{"_id":"60dec92f438fac75a4c6f319","lastUpdated":"2021-07-02T08:07:12.671Z","createdOn":"2021-06-21T13:51:07.981Z","name":"Events","slug":"events","singularName":"Event"},{"_id":"60dec92f438facb188c6f318","lastUpdated":"2021-07-02T08:07:12.664Z","createdOn":"2021-06-16T17:17:46.482Z","name":"Stories","slug":"stories","singularName":"Story"},{"_id":"60dedb8820c1f553b0e817cf","lastUpdated":"2021-07-02T09:44:10.730Z","createdOn":"2021-07-02T09:25:28.723Z","name":"Job
-        Listings","slug":"job-listings","singularName":"Job Listing"},{"_id":"60def7d3372f766c163734c2","lastUpdated":"2021-07-02T11:48:19.748Z","createdOn":"2021-07-02T11:26:11.474Z","name":"Articles","slug":"articles","singularName":"Article"}]'
-  recorded_at: Fri, 02 Jul 2021 12:15:09 GMT
-- request:
-    method: get
-    uri: https://api.webflow.com/sites/<WEBFLOW_SITE_ID>/collections
-    body:
-      encoding: UTF-8
-      string: ''
-    headers:
-      Authorization:
-      - Bearer <WEBFLOW_API_TOKEN>
-      Accept-Version:
-      - 1.0.0
-      Connection:
-      - close
-      Host:
-      - api.webflow.com
-      User-Agent:
-      - http.rb/5.0.1
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Fri, 02 Jul 2021 12:15:09 GMT
-      Etag:
-      - W/"2c3-2284ab52"
-      X-Ratelimit-Limit:
-      - '60'
-      X-Ratelimit-Remaining:
-      - '57'
-      X-Response-Time:
-      - 117.257ms
-      X-Wf-Rid:
-      - 179f298b-74e5-49c5-907f-1381a714cfa5
-      Content-Length:
-      - '707'
-      Connection:
-      - Close
-    body:
-      encoding: UTF-8
-      string: '[{"_id":"60dec92f438fac75a4c6f319","lastUpdated":"2021-07-02T08:07:12.671Z","createdOn":"2021-06-21T13:51:07.981Z","name":"Events","slug":"events","singularName":"Event"},{"_id":"60dec92f438facb188c6f318","lastUpdated":"2021-07-02T08:07:12.664Z","createdOn":"2021-06-16T17:17:46.482Z","name":"Stories","slug":"stories","singularName":"Story"},{"_id":"60dedb8820c1f553b0e817cf","lastUpdated":"2021-07-02T09:44:10.730Z","createdOn":"2021-07-02T09:25:28.723Z","name":"Job
-        Listings","slug":"job-listings","singularName":"Job Listing"},{"_id":"60def7d3372f766c163734c2","lastUpdated":"2021-07-02T11:48:19.748Z","createdOn":"2021-07-02T11:26:11.474Z","name":"Articles","slug":"articles","singularName":"Article"}]'
-  recorded_at: Fri, 02 Jul 2021 12:15:09 GMT
-- request:
-    method: post
-    uri: https://api.webflow.com/collections/60def7d3372f766c163734c2/items?live=true
-    body:
-      encoding: UTF-8
-      string: '{"fields":{"_archived":false,"_draft":false,"name":"Updated article
-        title"}}'
-    headers:
-      Authorization:
-      - Bearer <WEBFLOW_API_TOKEN>
-      Accept-Version:
-      - 1.0.0
-      Connection:
-      - close
-      Content-Type:
-      - application/json; charset=UTF-8
-      Host:
-      - api.webflow.com
-      User-Agent:
-      - http.rb/5.0.1
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Fri, 02 Jul 2021 12:15:09 GMT
-      Etag:
-      - W/"1ac-a530e7fd"
-      X-Ratelimit-Limit:
-      - '60'
-      X-Ratelimit-Remaining:
-      - '56'
-      X-Response-Time:
-      - 120.832ms
-      X-Wf-Rid:
-      - 4b7864b4-d921-46c3-a35d-1759b2963d6f
-      Content-Length:
-      - '428'
-      Connection:
-      - Close
-    body:
-      encoding: UTF-8
-      string: '{"_archived":false,"_draft":false,"name":"Updated article title","slug":"updated-article-title","updated-on":"2021-07-02T12:15:09.735Z","updated-by":"Person_600e7e930d76e69196a9592b","created-on":"2021-07-02T12:15:09.735Z","created-by":"Person_600e7e930d76e69196a9592b","published-on":"2021-07-02T12:15:09.735Z","published-by":"Person_600e7e930d76e69196a9592b","_cid":"60def7d3372f766c163734c2","_id":"60df034df15eb4eca4bc012c"}'
-  recorded_at: Fri, 02 Jul 2021 12:15:09 GMT
-- request:
-    method: patch
-    uri: https://api.webflow.com/collections/60def7d3372f766c163734c2/items/60defde681813e53c6be97ea?live=true
-    body:
-      encoding: UTF-8
-      string: '{"fields":{"_archived":false,"_draft":false,"name":"Updated article
-        title"}}'
-    headers:
-      Authorization:
-      - Bearer <WEBFLOW_API_TOKEN>
-      Accept-Version:
-      - 1.0.0
-      Connection:
-      - close
-      Content-Type:
-      - application/json; charset=UTF-8
-      Host:
-      - api.webflow.com
-      User-Agent:
-      - http.rb/5.0.1
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Fri, 02 Jul 2021 12:15:09 GMT
-      Etag:
-      - W/"1a1-a1d00781"
+      - W/"179-Ob+JKqqmWqqZ3y2SzFH9qGm3VNc"
+      Retry-After:
+      - '15'
       X-Ratelimit-Limit:
       - '60'
       X-Ratelimit-Remaining:
       - '55'
       X-Response-Time:
-      - 187.677ms
-      X-Wf-Rid:
-      - 5a94f1f0-904c-4e36-a9f5-f53af37e067e
-      Content-Length:
-      - '417'
-      Connection:
-      - Close
+      - 62.826ms
     body:
       encoding: UTF-8
-      string: '{"_archived":false,"_draft":false,"name":"Updated article title","slug":"mystring-6","updated-on":"2021-07-02T12:15:09.771Z","updated-by":"Person_600e7e930d76e69196a9592b","created-on":"2021-07-02T11:52:06.140Z","created-by":"Person_600e7e930d76e69196a9592b","published-on":"2021-07-02T12:15:09.771Z","published-by":"Person_600e7e930d76e69196a9592b","_cid":"60def7d3372f766c163734c2","_id":"60defde681813e53c6be97ea"}'
-  recorded_at: Fri, 02 Jul 2021 12:15:09 GMT
-recorded_with: VCR 6.0.0
+      string: '{"collections":[{"id":"653816abb6e95dab52f53077","displayName":"Articles","singularName":"Article","slug":"articles","createdOn":"2023-10-24T19:10:35.092Z","lastUpdated":"2023-10-24T19:10:35.260Z"},{"id":"653818838961b39ddebe0641","displayName":"Stories","singularName":"Story","slug":"stories","createdOn":"2023-10-24T19:18:27.801Z","lastUpdated":"2023-10-24T19:18:27.978Z"}]}'
+  recorded_at: Tue, 24 Oct 2023 19:20:18 GMT
+- request:
+    method: patch
+    uri: https://api.webflow.com/v2/collections/653816abb6e95dab52f53077/items/653817458c993c9a49fc411b
+    body:
+      encoding: UTF-8
+      string: '{"isArchived":false,"isDraft":false,"fieldData":{"name":"Updated article
+        title"}}'
+    headers:
+      Authorization:
+      - Bearer <WEBFLOW_API_TOKEN>
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      Connection:
+      - close
+      Host:
+      - api.webflow.com
+      User-Agent:
+      - http.rb/5.1.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 24 Oct 2023 19:20:22 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '301'
+      Connection:
+      - close
+      Etag:
+      - W/"12d-LpKryb9bLhDcnIdZsurOKp+1uOc"
+      Retry-After:
+      - '14'
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '54'
+      X-Response-Time:
+      - 125.178ms
+    body:
+      encoding: UTF-8
+      string: '{"id":"653817458c993c9a49fc411b","cmsLocaleId":"653816aa76146f23a78743c8","lastPublished":"2023-10-24T19:18:32.824Z","lastUpdated":"2023-10-24T19:20:22.357Z","createdOn":"2023-10-24T19:13:09.648Z","isArchived":false,"isDraft":false,"fieldData":{"name":"Updated
+        article title","slug":"mystring-c53c2"}}'
+  recorded_at: Tue, 24 Oct 2023 19:20:19 GMT
+- request:
+    method: post
+    uri: https://api.webflow.com/v2/collections/653816abb6e95dab52f53077/items/publish
+    body:
+      encoding: UTF-8
+      string: '{"itemIds":["653817458c993c9a49fc411b"]}'
+    headers:
+      Authorization:
+      - Bearer <WEBFLOW_API_TOKEN>
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      Connection:
+      - close
+      Host:
+      - api.webflow.com
+      User-Agent:
+      - http.rb/5.1.1
+  response:
+    status:
+      code: 202
+      message: Accepted
+    headers:
+      Date:
+      - Tue, 24 Oct 2023 19:20:23 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '61'
+      Connection:
+      - close
+      Etag:
+      - W/"3d-aJ8ihnM6AueRMK3OltlXqZzwXk0"
+      Retry-After:
+      - '13'
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '53'
+      X-Response-Time:
+      - 186.026ms
+    body:
+      encoding: UTF-8
+      string: '{"publishedItemIds":["653817458c993c9a49fc411b"],"errors":[]}'
+  recorded_at: Tue, 24 Oct 2023 19:20:20 GMT
+recorded_with: VCR 6.1.0

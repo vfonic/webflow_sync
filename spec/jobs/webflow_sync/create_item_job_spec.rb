@@ -59,6 +59,13 @@ module WebflowSync
       expect(article.reload.webflow_item_id).to be_present
     end
 
+    it 'creates published item on Webflow', vcr: { cassette_name: 'webflow/create_item' } do
+      WebflowSync::CreateItemJob.perform_now(model_name, article.id)
+
+      article_item = WebflowSync::Api.new(webflow_site_id).get_item('articles', article.reload.webflow_item_id)
+      expect(article_item.fetch('lastPublished')).to be_present
+    end
+
     context 'when sync_webflow_slug is true' do
       let(:sync_webflow_slug) { true }
 
@@ -86,15 +93,6 @@ module WebflowSync
         WebflowSync::CreateItemJob.perform_now(model_name, article.id, 'stories')
 
         expect(article.reload.webflow_item_id).to be_present
-      end
-
-      it 'syncs with correct WebFlow collection', vcr: { cassette_name: 'webflow/create_check_specified_collection' } do
-        result = WebflowSync::CreateItemJob.perform_now(model_name, article.id, 'stories')
-        client = Webflow::Client.new
-
-        collection = client.collection(result['_cid'])
-
-        expect(collection['slug']).to eq collection_slug
       end
     end
   end

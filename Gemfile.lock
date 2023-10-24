@@ -13,8 +13,8 @@ GIT
 
 GIT
   remote: https://github.com/vfonic/webflow-ruby.git
-  revision: 12e09aa537ca37d01808a9a42916f39c516b9ca5
-  branch: allow-live-delete
+  revision: 2e0439dd598d782004abb36c4014785bf3cbbb1a
+  branch: api-v2
   specs:
     webflow-ruby (1.2.1)
       http
@@ -171,7 +171,7 @@ GEM
     marcel (1.0.2)
     method_source (1.0.0)
     mini_mime (1.1.2)
-    minitest (5.17.0)
+    minitest (5.20.0)
     nenv (0.3.0)
     net-imap (0.3.4)
       date

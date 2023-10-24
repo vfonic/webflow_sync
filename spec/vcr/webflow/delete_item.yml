@@ -1,137 +1,183 @@
 ---
 http_interactions:
-  - request:
-      method: get
-      uri: https://api.webflow.com/sites/<WEBFLOW_SITE_ID>/collections
-      body:
-        encoding: UTF-8
-        string: ""
-      headers:
-        Authorization:
-          - Bearer <WEBFLOW_API_TOKEN>
-        Accept-Version:
-          - 1.0.0
-        Connection:
-          - close
-        Host:
-          - api.webflow.com
-        User-Agent:
-          - http.rb/5.0.1
-    response:
-      status:
-        code: 200
-        message: OK
-      headers:
-        Content-Type:
-          - application/json; charset=utf-8
-        Date:
-          - Fri, 02 Jul 2021 12:29:43 GMT
-        Etag:
-          - W/"2c3-2284ab52"
-        X-Ratelimit-Limit:
-          - "60"
-        X-Ratelimit-Remaining:
-          - "59"
-        X-Response-Time:
-          - 35.411ms
-        X-Wf-Rid:
-          - 01cd1eca-9635-40b1-9aea-b5eccf31bad7
-        Content-Length:
-          - "707"
-        Connection:
-          - Close
-      body:
-        encoding: UTF-8
-        string:
-          '[{"_id":"60dec92f438fac75a4c6f319","lastUpdated":"2021-07-02T08:07:12.671Z","createdOn":"2021-06-21T13:51:07.981Z","name":"Events","slug":"events","singularName":"Event"},{"_id":"60dec92f438facb188c6f318","lastUpdated":"2021-07-02T08:07:12.664Z","createdOn":"2021-06-16T17:17:46.482Z","name":"Stories","slug":"stories","singularName":"Story"},{"_id":"60dedb8820c1f553b0e817cf","lastUpdated":"2021-07-02T09:44:10.730Z","createdOn":"2021-07-02T09:25:28.723Z","name":"Job
-          Listings","slug":"job-listings","singularName":"Job Listing"},{"_id":"60def7d3372f766c163734c2","lastUpdated":"2021-07-02T11:48:19.748Z","createdOn":"2021-07-02T11:26:11.474Z","name":"Articles","slug":"articles","singularName":"Article"}]'
-    recorded_at: Fri, 02 Jul 2021 12:29:43 GMT
-  - request:
-      method: delete
-      uri: https://api.webflow.com/collections/60def7d3372f766c163734c2/items/60defde69683113ebb79e864?live=true
-      body:
-        encoding: UTF-8
-        string: ""
-      headers:
-        Authorization:
-          - Bearer <WEBFLOW_API_TOKEN>
-        Accept-Version:
-          - 1.0.0
-        Connection:
-          - close
-        Host:
-          - api.webflow.com
-        User-Agent:
-          - http.rb/5.0.1
-    response:
-      status:
-        code: 200
-        message: OK
-      headers:
-        Content-Type:
-          - application/json; charset=utf-8
-        Date:
-          - Fri, 02 Jul 2021 12:29:44 GMT
-        Etag:
-          - W/"d-b45e80bf"
-        X-Ratelimit-Limit:
-          - "60"
-        X-Ratelimit-Remaining:
-          - "58"
-        X-Response-Time:
-          - 82.442ms
-        X-Wf-Rid:
-          - cd62f9d1-40bf-45d2-a98c-4b1aa527f3ea
-        Content-Length:
-          - "13"
-        Connection:
-          - Close
-      body:
-        encoding: UTF-8
-        string: '{"deleted":1}'
-    recorded_at: Fri, 02 Jul 2021 12:29:44 GMT
-  - request:
-      method: delete
-      uri: https://api.webflow.com/collections/60def7d3372f766c163734c2/items/60defde69683113ebb79e864
-      body:
-        encoding: UTF-8
-        string: ""
-      headers:
-        Authorization:
-          - Bearer <WEBFLOW_API_TOKEN>
-        Accept-Version:
-          - 1.0.0
-        Connection:
-          - close
-        Host:
-          - api.webflow.com
-        User-Agent:
-          - http.rb/5.0.1
-    response:
-      status:
-        code: 200
-        message: OK
-      headers:
-        Content-Type:
-          - application/json; charset=utf-8
-        Date:
-          - Fri, 02 Jul 2021 12:29:44 GMT
-        Etag:
-          - W/"d-b45e80bf"
-        X-Ratelimit-Limit:
-          - "60"
-        X-Ratelimit-Remaining:
-          - "58"
-        X-Response-Time:
-          - 82.442ms
-        X-Wf-Rid:
-          - cd62f9d1-40bf-45d2-a98c-4b1aa527f3ea
-        Content-Length:
-          - "13"
-        Connection:
-          - Close
-      body:
-        encoding: UTF-8
-        string: '{"deleted":1}'
-    recorded_at: Fri, 02 Jul 2021 12:29:44 GMT
-recorded_with: VCR 6.0.0
+- request:
+    method: get
+    uri: https://api.webflow.com/v2/sites/<WEBFLOW_SITE_ID>/collections
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <WEBFLOW_API_TOKEN>
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      Connection:
+      - close
+      Host:
+      - api.webflow.com
+      User-Agent:
+      - http.rb/5.1.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 24 Oct 2023 19:35:33 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '377'
+      Connection:
+      - close
+      Etag:
+      - W/"179-Ob+JKqqmWqqZ3y2SzFH9qGm3VNc"
+      Retry-After:
+      - '60'
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '59'
+      X-Response-Time:
+      - 104.079ms
+    body:
+      encoding: UTF-8
+      string: '{"collections":[{"id":"653816abb6e95dab52f53077","displayName":"Articles","singularName":"Article","slug":"articles","createdOn":"2023-10-24T19:10:35.092Z","lastUpdated":"2023-10-24T19:10:35.260Z"},{"id":"653818838961b39ddebe0641","displayName":"Stories","singularName":"Story","slug":"stories","createdOn":"2023-10-24T19:18:27.801Z","lastUpdated":"2023-10-24T19:18:27.978Z"}]}'
+  recorded_at: Tue, 24 Oct 2023 19:35:30 GMT
+- request:
+    method: delete
+    uri: https://api.webflow.com/v2/collections/653816abb6e95dab52f53077/items/65381713d7c46e096ada14c3
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <WEBFLOW_API_TOKEN>
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      Connection:
+      - close
+      Host:
+      - api.webflow.com
+      User-Agent:
+      - http.rb/5.1.1
+  response:
+    status:
+      code: 204
+      message: No Content
+    headers:
+      Date:
+      - Tue, 24 Oct 2023 19:36:54 GMT
+      Connection:
+      - close
+      Etag:
+      - W/"a-bAsFyilMr4Ra1hIU5PyoyFRunpI"
+      Retry-After:
+      - '60'
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '59'
+      X-Response-Time:
+      - 1143.762ms
+    body:
+      encoding: ASCII-8BIT
+      string: ''
+  recorded_at: Tue, 24 Oct 2023 19:36:51 GMT
+- request:
+    method: get
+    uri: https://api.webflow.com/v2/sites/<WEBFLOW_SITE_ID>/collections
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <WEBFLOW_API_TOKEN>
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      Connection:
+      - close
+      Host:
+      - api.webflow.com
+      User-Agent:
+      - http.rb/5.1.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 24 Oct 2023 19:43:43 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '377'
+      Connection:
+      - close
+      Etag:
+      - W/"179-Ob+JKqqmWqqZ3y2SzFH9qGm3VNc"
+      Retry-After:
+      - '51'
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '57'
+      X-Response-Time:
+      - 1453.650ms
+    body:
+      encoding: UTF-8
+      string: '{"collections":[{"id":"653816abb6e95dab52f53077","displayName":"Articles","singularName":"Article","slug":"articles","createdOn":"2023-10-24T19:10:35.092Z","lastUpdated":"2023-10-24T19:10:35.260Z"},{"id":"653818838961b39ddebe0641","displayName":"Stories","singularName":"Story","slug":"stories","createdOn":"2023-10-24T19:18:27.801Z","lastUpdated":"2023-10-24T19:18:27.978Z"}]}'
+  recorded_at: Tue, 24 Oct 2023 19:43:40 GMT
+- request:
+    method: get
+    uri: https://api.webflow.com/v2/collections/653816abb6e95dab52f53077/items/65381713d7c46e096ada14c3
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <WEBFLOW_API_TOKEN>
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      Connection:
+      - close
+      Host:
+      - api.webflow.com
+      User-Agent:
+      - http.rb/5.1.1
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Date:
+      - Tue, 24 Oct 2023 19:43:46 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '108'
+      Connection:
+      - close
+      Etag:
+      - W/"6c-2nfC/dZTSQtY8JPEA6j14nf0UYA"
+      Retry-After:
+      - '48'
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '56'
+      X-Response-Time:
+      - 1814.407ms
+    body:
+      encoding: UTF-8
+      string: '{"message":"Requested resource not found","code":"resource_not_found","externalReference":null,"details":[]}'
+  recorded_at: Tue, 24 Oct 2023 19:43:42 GMT
+recorded_with: VCR 6.1.0

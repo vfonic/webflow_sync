@@ -12,9 +12,7 @@ module WebflowSync
       it 'does not sync' do
         allow(WebflowSync::Api).to receive(:new).and_return(mock_webflow_api)
 
-        WebflowSync::DestroyItemJob.perform_now(collection_slug: 'articles',
-                                                webflow_site_id:,
-                                                webflow_item_id: nil)
+        WebflowSync::DestroyItemJob.perform_now(collection_slug: 'articles', webflow_site_id:, webflow_item_id: nil)
 
         expect(mock_webflow_api).not_to have_received(:delete_item)
       end
@@ -24,9 +22,7 @@ module WebflowSync
       it 'does not sync' do
         allow(WebflowSync::Api).to receive(:new).and_return(mock_webflow_api)
 
-        WebflowSync::DestroyItemJob.perform_now(collection_slug: 'articles',
-                                                webflow_site_id: nil,
-                                                webflow_item_id: 'webflow_item_id')
+        WebflowSync::DestroyItemJob.perform_now(collection_slug: 'articles', webflow_site_id: nil, webflow_item_id: 'webflow_item_id')
 
         expect(mock_webflow_api).not_to have_received(:delete_item)
       end
@@ -34,10 +30,12 @@ module WebflowSync
 
     context 'when webflow_site_id is set' do
       it 'destroys item on Webflow', vcr: { cassette_name: 'webflow/delete_item' } do
-        result = WebflowSync::DestroyItemJob.perform_now(collection_slug: 'articles',
-                                                         webflow_site_id:,
-                                                         webflow_item_id: '60defde69683113ebb79e864')
-        expect(result).to eq({ 'deleted' => 1 })
+        webflow_item_id = '65381713d7c46e096ada14c3'
+        WebflowSync::DestroyItemJob.perform_now(collection_slug: 'articles', webflow_site_id:, webflow_item_id:)
+
+        expect do
+          WebflowSync::Api.new(webflow_site_id).get_item('articles', webflow_item_id)
+        end.to raise_error(Webflow::Error, 'Requested resource not found')
       end
     end
   end
