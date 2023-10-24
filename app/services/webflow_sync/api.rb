@@ -106,7 +106,7 @@ module WebflowSync
           client.public_send(method_name, *args)
         end
       rescue Webflow::Error => e
-        raise unless e.message.strip == 'Rate limit hit'
+        raise unless e.message.strip == 'Too Many Requests'
 
         puts 'Sleeping 10 seconds'
         sleep 10
