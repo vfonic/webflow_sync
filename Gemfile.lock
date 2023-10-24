@@ -13,7 +13,7 @@ GIT
 
 GIT
   remote: https://github.com/vfonic/webflow-ruby.git
-  revision: 2e0439dd598d782004abb36c4014785bf3cbbb1a
+  revision: 50c748ea8970f7e44c0585bd8809b3090a72b2e8
   branch: api-v2
   specs:
     webflow-ruby (1.2.1)
@@ -95,7 +95,7 @@ GEM
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
-    addressable (2.8.1)
+    addressable (2.8.5)
       public_suffix (>= 2.0.2, < 6.0)
     ast (2.4.2)
     builder (3.2.4)
@@ -120,7 +120,7 @@ GEM
     factory_bot_rails (6.2.0)
       factory_bot (~> 6.2.0)
       railties (>= 5.0.0)
-    ffi (1.15.5)
+    ffi (1.16.3)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
@@ -198,7 +198,7 @@ GEM
       method_source (~> 1.0)
     pry-rails (0.3.9)
       pry (>= 0.10.4)
-    public_suffix (5.0.1)
+    public_suffix (5.0.3)
     racc (1.6.2)
     rack (2.2.6.2)
     rack-test (2.0.2)
