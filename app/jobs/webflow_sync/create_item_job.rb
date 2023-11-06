@@ -11,11 +11,14 @@ module WebflowSync
     # collection_slug => slug of the WebFlow collection
     # model_name = 'articles'; id = article.id, collection_slug = 'stories'
     def perform(model_name, id, collection_slug = model_name.underscore.dasherize.pluralize)
+      return if WebflowSync.configuration.skip_webflow_sync
+
       model_class = model_name.underscore.classify.constantize
       record = model_class.find_by(id:)
       return if record.blank?
+      return if record.skip_webflow_sync
       return if record.webflow_site_id.blank?
-      return WebflowSync::UpdateItemJob.perform_now(model_name, id, collection_slug) if record.webflow_item_id.present?
+      return WebflowSync::UpdateItemJob.perform_later(model_name, id, collection_slug) if record.webflow_item_id.present?
 
       WebflowSync::Api.new(record.webflow_site_id).create_item(record, collection_slug)
     end

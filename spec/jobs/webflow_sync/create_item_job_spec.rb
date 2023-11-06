@@ -53,14 +53,20 @@ module WebflowSync
       end
     end
 
-    it 'creates item on Webflow', vcr: { cassette_name: 'webflow/create_item' } do
+    it 'creates item on Webflow', vcr: { cassette_name: 'webflow/create_item', allow_unused_http_interactions: false } do
+      old_skip_webflow_sync = WebflowSync.configuration.skip_webflow_sync
+      WebflowSync.configuration.skip_webflow_sync = false
       WebflowSync::CreateItemJob.perform_now(model_name, article.id)
+      WebflowSync.configuration.skip_webflow_sync = old_skip_webflow_sync
 
       expect(article.reload.webflow_item_id).to be_present
     end
 
-    it 'creates published item on Webflow', vcr: { cassette_name: 'webflow/create_item' } do
+    it 'creates published item on Webflow', vcr: { cassette_name: 'webflow/create_and_publish_item', allow_unused_http_interactions: false } do # rubocop:disable RSpec/ExampleLength
+      old_skip_webflow_sync = WebflowSync.configuration.skip_webflow_sync
+      WebflowSync.configuration.skip_webflow_sync = false
       WebflowSync::CreateItemJob.perform_now(model_name, article.id)
+      WebflowSync.configuration.skip_webflow_sync = old_skip_webflow_sync
 
       article_item = WebflowSync::Api.new(webflow_site_id).get_item('articles', article.reload.webflow_item_id)
       expect(article_item.fetch('lastPublished')).to be_present
@@ -69,8 +75,11 @@ module WebflowSync
     context 'when sync_webflow_slug is true' do
       let(:sync_webflow_slug) { true }
 
-      it 'syncs webflow_slug', vcr: { cassette_name: 'webflow/create_item' } do
+      it 'syncs webflow_slug', vcr: { cassette_name: 'webflow/create_item', allow_unused_http_interactions: false } do
+        old_skip_webflow_sync = WebflowSync.configuration.skip_webflow_sync
+        WebflowSync.configuration.skip_webflow_sync = false
         WebflowSync::CreateItemJob.perform_now(model_name, article.id)
+        WebflowSync.configuration.skip_webflow_sync = old_skip_webflow_sync
 
         expect(article.reload.webflow_slug).to be_present
       end
@@ -79,8 +88,11 @@ module WebflowSync
     context 'when sync_webflow_slug is false' do
       let(:sync_webflow_slug) { false }
 
-      it 'does not sync webflow slug', vcr: { cassette_name: 'webflow/create_item' } do
+      it 'does not sync webflow slug', vcr: { cassette_name: 'webflow/create_item', allow_unused_http_interactions: false } do
+        old_skip_webflow_sync = WebflowSync.configuration.skip_webflow_sync
+        WebflowSync.configuration.skip_webflow_sync = false
         WebflowSync::CreateItemJob.perform_now(model_name, article.id)
+        WebflowSync.configuration.skip_webflow_sync = old_skip_webflow_sync
 
         expect(article.reload.webflow_slug).to be_nil
       end
@@ -89,8 +101,12 @@ module WebflowSync
     context 'when slug name is passed' do
       let(:collection_slug) { 'stories' }
 
-      it 'creates item on Webflow', vcr: { cassette_name: 'webflow/create_sync_to_specified_collection' } do
+      it 'creates item on Webflow',
+         vcr: { cassette_name: 'webflow/create_sync_to_specified_collection', allow_unused_http_interactions: false } do
+        old_skip_webflow_sync = WebflowSync.configuration.skip_webflow_sync
+        WebflowSync.configuration.skip_webflow_sync = false
         WebflowSync::CreateItemJob.perform_now(model_name, article.id, 'stories')
+        WebflowSync.configuration.skip_webflow_sync = old_skip_webflow_sync
 
         expect(article.reload.webflow_item_id).to be_present
       end

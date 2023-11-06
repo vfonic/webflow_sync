@@ -1,3 +1,8 @@
+# 7.0.0
+
+- Always check `WebflowSync.configuration.skip_webflow_sync` and `record.skip_webflow_sync` before syncing a record.
+- When switching from create/update to update/create because of `webflow_item_id` already present/blank, enqueue the job instead of performing it inline. `return WebflowSync::CreateItemJob.perform_later(model_name, id, collection_slug) if record.webflow_item_id.blank?` instead of `return WebflowSync::CreateItemJob.perform_now(model_name, id, collection_slug) if record.webflow_item_id.blank?`. This helps to have the correct job visible on the queue in the jobs dashboard.
+
 # 6.1.2
 
 - Fix: Remove class methods that _do_ depend on `site_id` argument: `get_all_items`, `get_item`, `create_item`, `update_item`, `delete_item`

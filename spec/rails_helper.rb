@@ -8,7 +8,7 @@ require 'rspec/rails'
 
 # require 'database_cleaner'
 require 'factory_bot_rails'
-require_relative './factories'
+require_relative 'factories'
 require 'pry-rails'
 # require 'super_diff/rspec-rails'
 
@@ -21,6 +21,7 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 RSpec.configure do |config|
+  config.include ActiveJob::TestHelper
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = Rails.root.join '/spec/fixtures'
   config.include FactoryBot::Syntax::Methods

@@ -29,9 +29,13 @@ module WebflowSync
     end
 
     context 'when webflow_site_id is set' do
-      it 'destroys item on Webflow', vcr: { cassette_name: 'webflow/delete_item' } do
+      it 'destroys item on Webflow', vcr: { cassette_name: 'webflow/delete_item', allow_unused_http_interactions: false } do # rubocop:disable RSpec/ExampleLength
         webflow_item_id = '65382196f852bb061babf6c1'
+
+        old_skip_webflow_sync = WebflowSync.configuration.skip_webflow_sync
+        WebflowSync.configuration.skip_webflow_sync = false
         WebflowSync::DestroyItemJob.perform_now(collection_slug: 'articles', webflow_site_id:, webflow_item_id:)
+        WebflowSync.configuration.skip_webflow_sync = old_skip_webflow_sync
 
         expect do
           WebflowSync::Api.new(webflow_site_id).get_item('articles', webflow_item_id)

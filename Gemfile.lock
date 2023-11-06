@@ -22,7 +22,7 @@ GIT
 PATH
   remote: .
   specs:
-    webflow_sync (6.1.2)
+    webflow_sync (7.0.0)
       rails (>= 5.0)
       sprockets-rails
       webflow-ruby

@@ -140,4 +140,97 @@ http_interactions:
       encoding: UTF-8
       string: '{"publishedItemIds":["653817458c993c9a49fc411b"],"errors":[]}'
   recorded_at: Tue, 24 Oct 2023 19:20:20 GMT
+- request:
+    method: get
+    uri: https://api.webflow.com/v2/sites/<WEBFLOW_SITE_ID>/collections
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <WEBFLOW_API_TOKEN>
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      Connection:
+      - close
+      Host:
+      - api.webflow.com
+      User-Agent:
+      - http.rb/5.1.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 24 Oct 2023 20:41:38 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '377'
+      Connection:
+      - close
+      Etag:
+      - W/"179-Ob+JKqqmWqqZ3y2SzFH9qGm3VNc"
+      Retry-After:
+      - '58'
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '56'
+      X-Response-Time:
+      - 65.648ms
+    body:
+      encoding: UTF-8
+      string: '{"collections":[{"id":"653816abb6e95dab52f53077","displayName":"Articles","singularName":"Article","slug":"articles","createdOn":"2023-10-24T19:10:35.092Z","lastUpdated":"2023-10-24T19:10:35.260Z"},{"id":"653818838961b39ddebe0641","displayName":"Stories","singularName":"Story","slug":"stories","createdOn":"2023-10-24T19:18:27.801Z","lastUpdated":"2023-10-24T19:18:27.978Z"}]}'
+  recorded_at: Tue, 24 Oct 2023 20:41:35 GMT
+- request:
+    method: get
+    uri: https://api.webflow.com/v2/collections/653816abb6e95dab52f53077/items/653817458c993c9a49fc411b
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <WEBFLOW_API_TOKEN>
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      Connection:
+      - close
+      Host:
+      - api.webflow.com
+      User-Agent:
+      - http.rb/5.1.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 24 Oct 2023 20:41:40 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '294'
+      Connection:
+      - close
+      Etag:
+      - W/"126-lC7TO/gGyjpmSdrG1db5jHBQLQs"
+      Retry-After:
+      - '57'
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '55'
+      X-Response-Time:
+      - 1465.993ms
+    body:
+      encoding: UTF-8
+      string: '{"id":"653817458c993c9a49fc411b","cmsLocaleId":"653816aa76146f23a78743c8","lastPublished":"2023-10-24T20:41:37.391Z","lastUpdated":"2023-10-24T20:41:37.391Z","createdOn":"2023-10-24T19:13:09.648Z","isArchived":false,"isDraft":false,"fieldData":{"name":"Updated
+        article title","slug":"mystring-c53c2"}}'
+  recorded_at: Tue, 24 Oct 2023 20:41:37 GMT
 recorded_with: VCR 6.1.0
