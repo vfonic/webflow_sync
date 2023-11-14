@@ -40,7 +40,7 @@ module WebflowSync
       WebflowSync.configuration.skip_webflow_sync = old_skip_webflow_sync
 
       item = WebflowSync::Api.new(webflow_site_id).get_item(model_name, article.webflow_item_id)
-      expect(item.dig('fieldData', 'name')).to eq title
+      expect(item.dig(:fieldData, :name)).to eq title
     end
 
     it 'publishes item on Webflow', vcr: { cassette_name: 'webflow/publish_item', allow_unused_http_interactions: false } do # rubocop:disable RSpec/ExampleLength
@@ -54,8 +54,8 @@ module WebflowSync
       WebflowSync.configuration.skip_webflow_sync = old_skip_webflow_sync
 
       item = WebflowSync::Api.new(webflow_site_id).get_item(model_name, article.webflow_item_id)
-      expect(item.dig('fieldData', 'name')).to eq title
-      expect(Time.zone.parse(item['lastPublished'])).to be >= Time.zone.parse(item['lastUpdated'])
+      expect(item.dig(:fieldData, :name)).to eq title
+      expect(Time.zone.parse(item.fetch(:lastPublished))).to be >= Time.zone.parse(item.fetch(:lastUpdated))
     end
 
     context 'when record does not exist' do
@@ -118,7 +118,7 @@ module WebflowSync
         result = WebflowSync::UpdateItemJob.perform_now(model_name, article.id, 'stories')
         WebflowSync.configuration.skip_webflow_sync = old_skip_webflow_sync
 
-        expect(result.dig('fieldData', 'name')).to eq 'Updated article title'
+        expect(result.dig(:fieldData, :name)).to eq 'Updated article title'
       end
     end
   end

@@ -9,19 +9,19 @@ module WebflowSync
     end
 
     def get_all_items(collection_slug:, page_limit: 100) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-      collection_id = find_webflow_collection(collection_slug).fetch('id')
+      collection_id = find_webflow_collection(collection_slug).fetch(:id)
       max_items_per_page = [page_limit, 100].min
       first_page_number = 1
 
       result = make_request(:paginate_items, collection_id, page: first_page_number, per_page: max_items_per_page)
       puts "Get all items from WebFlow for #{collection_slug} page: #{first_page_number}"
 
-      total_items = result.dig('pagination', 'total')
+      total_items = result.dig(:pagination, :total)
       total_pages = (total_items.to_f / max_items_per_page).ceil
-      items = result.fetch('items')
+      items = result.fetch(:items)
 
       (2..total_pages).each do |page_number|
-        next_page_items = make_request(:paginate_items, collection_id, page: page_number, per_page: max_items_per_page).fetch('items')
+        next_page_items = make_request(:paginate_items, collection_id, page: page_number, per_page: max_items_per_page).fetch(:items)
         puts "Get all items from WebFlow for #{collection_slug} page: #{page_number}"
 
         items.concat next_page_items
@@ -33,32 +33,32 @@ module WebflowSync
     def get_item(collection_slug, webflow_item_id)
       collection = find_webflow_collection(collection_slug)
 
-      make_request(:item, collection.fetch('id'), webflow_item_id)
+      make_request(:item, collection.fetch(:id), webflow_item_id)
     end
 
     def create_item(record, collection_slug)
       collection = find_webflow_collection(collection_slug)
-      response = make_request(:create_item, collection.fetch('id'), record.as_webflow_json, publish: true)
+      response = make_request(:create_item, collection.fetch(:id), record.as_webflow_json, publish: true)
 
       if update_record_columns(record, response)
         puts "Created #{record.inspect} in #{collection_slug}"
         response
       else
-        raise "Failed to store webflow_item_id: '#{response.fetch('id')}' " \
+        raise "Failed to store webflow_item_id: '#{response.fetch(:id)}' " \
               "after creating item in WebFlow collection #{record.inspect}"
       end
     end
 
     def update_item(record, collection_slug)
       collection = find_webflow_collection(collection_slug)
-      response = make_request(:update_item, collection.fetch('id'), record.webflow_item_id, record.as_webflow_json, publish: true)
+      response = make_request(:update_item, collection.fetch(:id), record.webflow_item_id, record.as_webflow_json, publish: true)
       puts "Updated #{record.inspect} in #{collection_slug}"
       response
     end
 
     def delete_item(collection_slug, webflow_item_id)
       collection = find_webflow_collection(collection_slug)
-      response = make_request(:delete_item, collection.fetch('id'), webflow_item_id)
+      response = make_request(:delete_item, collection.fetch(:id), webflow_item_id)
       puts "Deleted #{webflow_item_id} from #{collection_slug}"
       response
     end
@@ -80,11 +80,11 @@ module WebflowSync
       end
 
       def collections
-        @collections ||= make_request(:collections, site_id).fetch('collections')
+        @collections ||= make_request(:collections, site_id)
       end
 
       def find_webflow_collection(collection_slug)
-        response = collections.find { |collection| collection.fetch('slug') == collection_slug }
+        response = collections.find { |collection| collection.fetch(:slug) == collection_slug }
         raise "Cannot find collection #{collection_slug} for Webflow site #{site_id}" unless response
 
         response
@@ -93,9 +93,9 @@ module WebflowSync
       def update_record_columns(record, response)
         # use update_column to skip callbacks to prevent WebflowSync::ItemSync to kick off
         if WebflowSync.configuration.sync_webflow_slug
-          record.update_columns(webflow_item_id: response.fetch('id'), webflow_slug: response.dig('fieldData', 'slug')) # rubocop:disable Rails/SkipsModelValidations
+          record.update_columns(webflow_item_id: response.fetch(:id), webflow_slug: response.dig(:fieldData, :slug)) # rubocop:disable Rails/SkipsModelValidations
         else
-          record.update_column(:webflow_item_id, response.fetch('id')) # rubocop:disable Rails/SkipsModelValidations
+          record.update_column(:webflow_item_id, response.fetch(:id)) # rubocop:disable Rails/SkipsModelValidations
         end
       end
 

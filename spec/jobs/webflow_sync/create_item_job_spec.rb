@@ -69,7 +69,7 @@ module WebflowSync
       WebflowSync.configuration.skip_webflow_sync = old_skip_webflow_sync
 
       article_item = WebflowSync::Api.new(webflow_site_id).get_item('articles', article.reload.webflow_item_id)
-      expect(article_item.fetch('lastPublished')).to be_present
+      expect(article_item.fetch(:lastPublished)).to be_present
     end
 
     context 'when sync_webflow_slug is true' do
