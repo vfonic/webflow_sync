@@ -27,6 +27,11 @@ module WebflowSync
         WebflowSync.configuration.webflow_site_id
       end
 
+      # override this method in your model to match the collection slug in Webflow
+      def webflow_collection_slug
+        self.model_name.collection.underscore.dasherize
+      end
+
       # You can customize this to your liking:
       # def as_webflow_json
       #   {

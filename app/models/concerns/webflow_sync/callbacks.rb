@@ -15,22 +15,19 @@ module WebflowSync
       def create_webflow_item
         return if WebflowSync.configuration.skip_webflow_sync || self.skip_webflow_sync || self.webflow_site_id.blank?
 
-        WebflowSync::CreateItemJob.perform_later(self.model_name.collection, self.id)
+        WebflowSync::CreateItemJob.perform_later(self.model_name.name, self.id, self.webflow_collection_slug)
       end
 
       def update_webflow_item
         return if WebflowSync.configuration.skip_webflow_sync || self.skip_webflow_sync || self.webflow_site_id.blank?
 
-        WebflowSync::UpdateItemJob.perform_later(self.model_name.collection, self.id)
+        WebflowSync::UpdateItemJob.perform_later(self.model_name.name, self.id, self.webflow_collection_slug)
       end
 
       def destroy_webflow_item
         return if WebflowSync.configuration.skip_webflow_sync || self.skip_webflow_sync || self.webflow_site_id.blank?
 
-        # Make sure slug is in the plural form, and multiple words slug separated by dashes
-        collection_slug = self.model_name.collection.underscore.dasherize
-
-        WebflowSync::DestroyItemJob.perform_later(collection_slug:,
+        WebflowSync::DestroyItemJob.perform_later(collection_slug: self.webflow_collection_slug,
                                                   webflow_site_id: self.webflow_site_id,
                                                   webflow_item_id: self.webflow_item_id)
       end
