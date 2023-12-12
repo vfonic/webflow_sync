@@ -34,7 +34,7 @@ module WebflowSync
 
         def should_skip_webflow_sync?
           WebflowSync.configuration.skip_webflow_sync || self.skip_webflow_sync ||
-            self.webflow_item_id.blank? || self.webflow_site_id.blank? || self.webflow_collection_id.blank?
+            self.webflow_site_id.blank? || self.webflow_collection_id.blank?
         end
     end
   end

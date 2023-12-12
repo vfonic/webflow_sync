@@ -176,4 +176,48 @@ http_interactions:
       encoding: UTF-8
       string: '{"id":"656ffa2dddb10e6282ce013d","cmsLocaleId":"653816aa76146f23a78743c8","lastPublished":"2023-12-06T04:35:59.022Z","lastUpdated":"2023-12-06T04:35:59.022Z","createdOn":"2023-12-06T04:35:57.875Z","isArchived":false,"isDraft":false,"fieldData":{"name":"MyString","slug":"mystring"}}'
   recorded_at: Wed, 06 Dec 2023 04:35:59 GMT
+- request:
+    method: get
+    uri: https://api.webflow.com/v2/sites/<WEBFLOW_SITE_ID>/collections
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <WEBFLOW_API_TOKEN>
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 12 Dec 2023 13:05:53 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '377'
+      Connection:
+      - keep-alive
+      Etag:
+      - W/"179-Ob+JKqqmWqqZ3y2SzFH9qGm3VNc"
+      Retry-After:
+      - '57'
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '55'
+      X-Response-Time:
+      - 273.193ms
+    body:
+      encoding: UTF-8
+      string: '{"collections":[{"id":"653816abb6e95dab52f53077","displayName":"Articles","singularName":"Article","slug":"articles","createdOn":"2023-10-24T19:10:35.092Z","lastUpdated":"2023-10-24T19:10:35.260Z"},{"id":"653818838961b39ddebe0641","displayName":"Stories","singularName":"Story","slug":"stories","createdOn":"2023-10-24T19:18:27.801Z","lastUpdated":"2023-10-24T19:18:27.978Z"}]}'
+  recorded_at: Tue, 12 Dec 2023 13:05:52 GMT
 recorded_with: VCR 6.1.0

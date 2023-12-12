@@ -176,4 +176,92 @@ http_interactions:
       encoding: UTF-8
       string: '{"publishedItemIds":["656ffeec25257cd0214d67ca"],"errors":[]}'
   recorded_at: Wed, 06 Dec 2023 04:56:13 GMT
+- request:
+    method: patch
+    uri: https://api.webflow.com/v2/collections/653816abb6e95dab52f53077/items/656ffeec25257cd0214d67ca
+    body:
+      encoding: UTF-8
+      string: '{"isArchived":false,"isDraft":false,"fieldData":{"name":"MyString"}}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <WEBFLOW_API_TOKEN>
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 12 Dec 2023 13:06:51 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '288'
+      Connection:
+      - keep-alive
+      Etag:
+      - W/"120-3y/YulT+CXJT12mmtYzdXPyy18s"
+      Retry-After:
+      - '60'
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '59'
+      X-Response-Time:
+      - 138.723ms
+    body:
+      encoding: UTF-8
+      string: '{"id":"656ffeec25257cd0214d67ca","cmsLocaleId":"653816aa76146f23a78743c8","lastPublished":"2023-12-12T10:52:09.104Z","lastUpdated":"2023-12-12T13:06:51.511Z","createdOn":"2023-12-06T04:56:12.744Z","isArchived":false,"isDraft":false,"fieldData":{"name":"MyString","slug":"mystring-e2b54"}}'
+  recorded_at: Tue, 12 Dec 2023 13:06:50 GMT
+- request:
+    method: post
+    uri: https://api.webflow.com/v2/collections/653816abb6e95dab52f53077/items/publish
+    body:
+      encoding: UTF-8
+      string: '{"itemIds":["656ffeec25257cd0214d67ca"]}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <WEBFLOW_API_TOKEN>
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 202
+      message: Accepted
+    headers:
+      Date:
+      - Tue, 12 Dec 2023 13:06:52 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '61'
+      Connection:
+      - keep-alive
+      Etag:
+      - W/"3d-vXkYVhyGJOKHKUW91PoAZyGxAyg"
+      Retry-After:
+      - '60'
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '58'
+      X-Response-Time:
+      - 615.110ms
+    body:
+      encoding: UTF-8
+      string: '{"publishedItemIds":["656ffeec25257cd0214d67ca"],"errors":[]}'
+  recorded_at: Tue, 12 Dec 2023 13:06:51 GMT
 recorded_with: VCR 6.1.0
