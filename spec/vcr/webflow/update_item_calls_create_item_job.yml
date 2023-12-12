@@ -23,7 +23,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 12 Dec 2023 11:08:53 GMT
+      - Wed, 06 Dec 2023 04:56:11 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
@@ -39,17 +39,17 @@ http_interactions:
       X-Ratelimit-Remaining:
       - '59'
       X-Response-Time:
-      - 71.553ms
+      - 111.502ms
     body:
       encoding: UTF-8
       string: '{"collections":[{"id":"653816abb6e95dab52f53077","displayName":"Articles","singularName":"Article","slug":"articles","createdOn":"2023-10-24T19:10:35.092Z","lastUpdated":"2023-10-24T19:10:35.260Z"},{"id":"653818838961b39ddebe0641","displayName":"Stories","singularName":"Story","slug":"stories","createdOn":"2023-10-24T19:18:27.801Z","lastUpdated":"2023-10-24T19:18:27.978Z"}]}'
-  recorded_at: Tue, 12 Dec 2023 11:08:52 GMT
+  recorded_at: Wed, 06 Dec 2023 04:56:11 GMT
 - request:
-    method: patch
-    uri: https://api.webflow.com/v2/collections/653816abb6e95dab52f53077/items/65783b4e8708079b31dfa7b7
+    method: get
+    uri: https://api.webflow.com/v2/sites/<WEBFLOW_SITE_ID>/collections
     body:
-      encoding: UTF-8
-      string: '{"isArchived":true,"isDraft":false}'
+      encoding: US-ASCII
+      string: ''
     headers:
       Accept:
       - application/json
@@ -67,15 +67,15 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 12 Dec 2023 11:08:54 GMT
+      - Wed, 06 Dec 2023 04:56:12 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
-      - '285'
+      - '377'
       Connection:
       - keep-alive
       Etag:
-      - W/"11d-DdnbFF2tfMO/1OK9qHwekt34+lM"
+      - W/"179-Ob+JKqqmWqqZ3y2SzFH9qGm3VNc"
       Retry-After:
       - '60'
       X-Ratelimit-Limit:
@@ -83,18 +83,17 @@ http_interactions:
       X-Ratelimit-Remaining:
       - '58'
       X-Response-Time:
-      - 396.246ms
+      - 48.394ms
     body:
       encoding: UTF-8
-      string: '{"id":"65783b4e8708079b31dfa7b7","cmsLocaleId":"653816aa76146f23a78743c8","lastPublished":"2023-12-12T10:52:09.104Z","lastUpdated":"2023-12-12T11:08:54.538Z","createdOn":"2023-12-12T10:51:58.747Z","isArchived":true,"isDraft":false,"fieldData":{"name":"My
-        article","slug":"my-article"}}'
-  recorded_at: Tue, 12 Dec 2023 11:08:53 GMT
+      string: '{"collections":[{"id":"653816abb6e95dab52f53077","displayName":"Articles","singularName":"Article","slug":"articles","createdOn":"2023-10-24T19:10:35.092Z","lastUpdated":"2023-10-24T19:10:35.260Z"},{"id":"653818838961b39ddebe0641","displayName":"Stories","singularName":"Story","slug":"stories","createdOn":"2023-10-24T19:18:27.801Z","lastUpdated":"2023-10-24T19:18:27.978Z"}]}'
+  recorded_at: Wed, 06 Dec 2023 04:56:11 GMT
 - request:
     method: post
-    uri: https://api.webflow.com/v2/collections/653816abb6e95dab52f53077/items/publish
+    uri: https://api.webflow.com/v2/collections/653816abb6e95dab52f53077/items
     body:
       encoding: UTF-8
-      string: '{"itemIds":["65783b4e8708079b31dfa7b7"]}'
+      string: '{"isArchived":false,"isDraft":false,"fieldData":{"name":"MyString"}}'
     headers:
       Accept:
       - application/json
@@ -112,15 +111,15 @@ http_interactions:
       message: Accepted
     headers:
       Date:
-      - Tue, 12 Dec 2023 11:08:55 GMT
+      - Wed, 06 Dec 2023 04:56:12 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
-      - '61'
+      - '266'
       Connection:
       - keep-alive
       Etag:
-      - W/"3d-2SVWh8lWfp9lOW23bjvoflmr5Ps"
+      - W/"10a-UzDY8+83AAI9WimydL6S7bDWBo0"
       Retry-After:
       - '59'
       X-Ratelimit-Limit:
@@ -128,17 +127,17 @@ http_interactions:
       X-Ratelimit-Remaining:
       - '57'
       X-Response-Time:
-      - 448.719ms
+      - 330.522ms
     body:
       encoding: UTF-8
-      string: '{"publishedItemIds":["65783b4e8708079b31dfa7b7"],"errors":[]}'
-  recorded_at: Tue, 12 Dec 2023 11:08:54 GMT
+      string: '{"id":"656ffeec25257cd0214d67ca","cmsLocaleId":"653816aa76146f23a78743c8","lastPublished":null,"lastUpdated":"2023-12-06T04:56:12.744Z","createdOn":"2023-12-06T04:56:12.744Z","isArchived":false,"isDraft":false,"fieldData":{"name":"MyString","slug":"mystring-e2b54"}}'
+  recorded_at: Wed, 06 Dec 2023 04:56:12 GMT
 - request:
-    method: delete
-    uri: https://api.webflow.com/v2/collections/653816abb6e95dab52f53077/items/65783b4e8708079b31dfa7b7
+    method: post
+    uri: https://api.webflow.com/v2/collections/653816abb6e95dab52f53077/items/publish
     body:
-      encoding: US-ASCII
-      string: ''
+      encoding: UTF-8
+      string: '{"itemIds":["656ffeec25257cd0214d67ca"]}'
     headers:
       Accept:
       - application/json
@@ -152,69 +151,29 @@ http_interactions:
       - Ruby
   response:
     status:
-      code: 204
-      message: No Content
+      code: 202
+      message: Accepted
     headers:
       Date:
-      - Tue, 12 Dec 2023 11:08:56 GMT
+      - Wed, 06 Dec 2023 04:56:13 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '61'
       Connection:
       - keep-alive
       Etag:
-      - W/"a-bAsFyilMr4Ra1hIU5PyoyFRunpI"
+      - W/"3d-vXkYVhyGJOKHKUW91PoAZyGxAyg"
       Retry-After:
-      - '58'
+      - '59'
       X-Ratelimit-Limit:
       - '60'
       X-Ratelimit-Remaining:
       - '56'
       X-Response-Time:
-      - 193.136ms
+      - 320.339ms
     body:
       encoding: UTF-8
-      string: ''
-  recorded_at: Tue, 12 Dec 2023 11:08:55 GMT
-- request:
-    method: get
-    uri: https://api.webflow.com/v2/collections/653816abb6e95dab52f53077/items/65783b4e8708079b31dfa7b7
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept:
-      - application/json
-      Content-Type:
-      - application/json
-      Authorization:
-      - Bearer <WEBFLOW_API_TOKEN>
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 404
-      message: Not Found
-    headers:
-      Date:
-      - Tue, 12 Dec 2023 11:08:56 GMT
-      Content-Type:
-      - application/json; charset=utf-8
-      Content-Length:
-      - '108'
-      Connection:
-      - keep-alive
-      Etag:
-      - W/"6c-2nfC/dZTSQtY8JPEA6j14nf0UYA"
-      Retry-After:
-      - '57'
-      X-Ratelimit-Limit:
-      - '60'
-      X-Ratelimit-Remaining:
-      - '55'
-      X-Response-Time:
-      - 39.837ms
-    body:
-      encoding: UTF-8
-      string: '{"message":"Requested resource not found","code":"resource_not_found","externalReference":null,"details":[]}'
-  recorded_at: Tue, 12 Dec 2023 11:08:56 GMT
+      string: '{"publishedItemIds":["656ffeec25257cd0214d67ca"],"errors":[]}'
+  recorded_at: Wed, 06 Dec 2023 04:56:13 GMT
 recorded_with: VCR 6.1.0

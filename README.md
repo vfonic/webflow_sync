@@ -10,12 +10,9 @@ For the latest changes, check the [CHANGELOG.md](CHANGELOG.md).
 
 ## Installation
 
-This gem currently only works with a fork of 'webflow-ruby' gem.
-
-Add these lines to your application's Gemfile:
+Add this line to your application's Gemfile:
 
 ```ruby
-gem 'webflow-ruby', github: 'vfonic/webflow-ruby', branch: 'api-v2'
 gem 'webflow_sync'
 ```
 

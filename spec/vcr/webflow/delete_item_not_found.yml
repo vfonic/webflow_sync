@@ -1,0 +1,91 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.webflow.com/v2/sites/<WEBFLOW_SITE_ID>/collections
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <WEBFLOW_API_TOKEN>
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 12 Dec 2023 11:08:57 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '377'
+      Connection:
+      - keep-alive
+      Etag:
+      - W/"179-Ob+JKqqmWqqZ3y2SzFH9qGm3VNc"
+      Retry-After:
+      - '57'
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '54'
+      X-Response-Time:
+      - 269.109ms
+    body:
+      encoding: UTF-8
+      string: '{"collections":[{"id":"653816abb6e95dab52f53077","displayName":"Articles","singularName":"Article","slug":"articles","createdOn":"2023-10-24T19:10:35.092Z","lastUpdated":"2023-10-24T19:10:35.260Z"},{"id":"653818838961b39ddebe0641","displayName":"Stories","singularName":"Story","slug":"stories","createdOn":"2023-10-24T19:18:27.801Z","lastUpdated":"2023-10-24T19:18:27.978Z"}]}'
+  recorded_at: Tue, 12 Dec 2023 11:08:56 GMT
+- request:
+    method: patch
+    uri: https://api.webflow.com/v2/collections/653816abb6e95dab52f53077/items/does_not_exist_on_webflow
+    body:
+      encoding: UTF-8
+      string: '{"isArchived":true,"isDraft":false}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <WEBFLOW_API_TOKEN>
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Date:
+      - Tue, 12 Dec 2023 11:08:58 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '118'
+      Connection:
+      - keep-alive
+      Etag:
+      - W/"76-E6VIfo7lxiYIBwCkHd5sVNDA2x0"
+      Retry-After:
+      - '56'
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '53'
+      X-Response-Time:
+      - 29.872ms
+    body:
+      encoding: UTF-8
+      string: '{"message":"Validation Error: Provided ID is invalid","code":"validation_error","externalReference":null,"details":[]}'
+  recorded_at: Tue, 12 Dec 2023 11:08:57 GMT
+recorded_with: VCR 6.1.0

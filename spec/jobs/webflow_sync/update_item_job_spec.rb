@@ -7,18 +7,21 @@ module WebflowSync
   RSpec.describe WebflowSync::UpdateItemJob do
     let(:model_name) { 'articles' }
     let(:article) { create(:article, webflow_item_id: '653817458c993c9a49fc411b') }
-    let(:mock_webflow_api) { instance_double(WebflowSync::Api, update_item: nil) }
-
+    let(:mock_webflow_api) { instance_double(WebflowSync::Api, update_item: nil, find_collection_id: nil) }
+    let(:collection_slug) { 'articles' }
+    let(:collection_id) { WebflowSync::Api.new(site_id: webflow_site_id).find_collection_id(collection_slug:) }
     let(:sync_webflow_slug) { false }
     let(:webflow_site_id) { ENV.fetch('WEBFLOW_SITE_ID') }
 
     before(:each) do
       @old_sync_webflow_slug = WebflowSync.configuration.sync_webflow_slug
       @old_webflow_site_id = WebflowSync.configuration.webflow_site_id
+      @old_skip_webflow_sync = WebflowSync.configuration.skip_webflow_sync
 
       WebflowSync.configure do |config|
         config.sync_webflow_slug = sync_webflow_slug
         config.webflow_site_id = webflow_site_id
+        config.skip_webflow_sync = false
       end
     end
 
@@ -26,35 +29,30 @@ module WebflowSync
       WebflowSync.configure do |config|
         config.sync_webflow_slug = @old_sync_webflow_slug
         config.webflow_site_id = @old_webflow_site_id
+        config.skip_webflow_sync = @old_skip_webflow_sync
       end
     end
 
-    it 'updates item on Webflow', vcr: { cassette_name: 'webflow/update_item', allow_unused_http_interactions: false } do # rubocop:disable RSpec/ExampleLength
+    it 'updates item on Webflow', vcr: { cassette_name: 'webflow/update_item' } do # rubocop:disable RSpec/ExampleLength
       title = 'Updated article title'
       article.title = title
 
-      old_skip_webflow_sync = WebflowSync.configuration.skip_webflow_sync
-      WebflowSync.configuration.skip_webflow_sync = false
       article.save!
       perform_enqueued_jobs
-      WebflowSync.configuration.skip_webflow_sync = old_skip_webflow_sync
 
-      item = WebflowSync::Api.new(webflow_site_id).get_item(model_name, article.webflow_item_id)
-      expect(item.dig(:fieldData, :name)).to eq title
+      item = WebflowSync::Api.new(site_id: webflow_site_id).get_item(collection_id:, webflow_item_id: article.webflow_item_id)
+      expect(item.dig(:fieldData, :name)).to eq(title)
     end
 
-    it 'publishes item on Webflow', vcr: { cassette_name: 'webflow/publish_item', allow_unused_http_interactions: false } do # rubocop:disable RSpec/ExampleLength
+    it 'publishes item on Webflow', vcr: { cassette_name: 'webflow/publish_item' } do # rubocop:disable RSpec/ExampleLength
       title = 'New live title'
       article.title = title
 
-      old_skip_webflow_sync = WebflowSync.configuration.skip_webflow_sync
-      WebflowSync.configuration.skip_webflow_sync = false
       article.save!
       perform_enqueued_jobs
-      WebflowSync.configuration.skip_webflow_sync = old_skip_webflow_sync
 
-      item = WebflowSync::Api.new(webflow_site_id).get_item(model_name, article.webflow_item_id)
-      expect(item.dig(:fieldData, :name)).to eq title
+      item = WebflowSync::Api.new(site_id: webflow_site_id).get_item(collection_id:, webflow_item_id: article.webflow_item_id)
+      expect(item.dig(:fieldData, :name)).to eq(title)
       expect(Time.zone.parse(item.fetch(:lastPublished))).to be >= Time.zone.parse(item.fetch(:lastUpdated))
     end
 
@@ -64,7 +62,7 @@ module WebflowSync
       it 'does not sync' do
         allow(WebflowSync::Api).to receive(:new).and_return(mock_webflow_api)
 
-        WebflowSync::UpdateItemJob.perform_now(model_name, record_id)
+        WebflowSync::UpdateItemJob.perform_now(collection_id:, model_name:, id: record_id)
 
         expect(mock_webflow_api).not_to have_received(:update_item)
       end
@@ -76,31 +74,24 @@ module WebflowSync
       it 'does not sync' do
         allow(WebflowSync::Api).to receive(:new).and_return(mock_webflow_api)
 
-        WebflowSync::UpdateItemJob.perform_now(model_name, article.id)
+        WebflowSync::UpdateItemJob.perform_now(collection_id:, model_name:, id: article.id)
 
         expect(mock_webflow_api).not_to have_received(:update_item)
       end
     end
 
     context 'when webflow_item_id is nil' do
-      let(:mock_webflow_api) do
-        instance_double(WebflowSync::Api, update_item: nil, create_item: nil)
-      end
+      let(:mock_webflow_api) { instance_double(WebflowSync::Api, update_item: nil, create_item: nil) }
 
       before(:each) do
         article.update!(webflow_item_id: nil)
       end
 
-      it 'calls CreateItemJob' do # rubocop:disable RSpec/ExampleLength
+      it 'calls CreateItemJob', vcr: { cassette_name: 'webflow/update_item_calls_create_item_job' } do
         allow(WebflowSync::CreateItemJob).to receive(:perform_later)
 
-        old_skip_webflow_sync = WebflowSync.configuration.skip_webflow_sync
-        WebflowSync.configuration.skip_webflow_sync = false
-
-        WebflowSync::UpdateItemJob.perform_now(model_name, article.id)
-
+        WebflowSync::UpdateItemJob.perform_now(collection_id:, model_name:, id: article.id)
         perform_enqueued_jobs
-        WebflowSync.configuration.skip_webflow_sync = old_skip_webflow_sync
 
         expect(WebflowSync::CreateItemJob).to have_received(:perform_later)
       end
@@ -110,15 +101,13 @@ module WebflowSync
       let(:collection_slug) { 'stories' }
       let(:article) { create(:article, webflow_item_id: '65381893e6d401cdd3f3a363') }
 
-      it 'updates item on Webflow', vcr: { cassette_name: 'webflow/update_sync_to_specified_collection', allow_unused_http_interactions: false } do # rubocop:disable RSpec/ExampleLength
-        article.update!(title: 'Updated article title')
+      it 'updates item on Webflow', vcr: { cassette_name: 'webflow/update_sync_to_specified_collection' } do
+        title = 'Updated article title'
+        article.update!(title:)
 
-        old_skip_webflow_sync = WebflowSync.configuration.skip_webflow_sync
-        WebflowSync.configuration.skip_webflow_sync = false
-        result = WebflowSync::UpdateItemJob.perform_now(model_name, article.id, 'stories')
-        WebflowSync.configuration.skip_webflow_sync = old_skip_webflow_sync
+        result = WebflowSync::UpdateItemJob.perform_now(collection_id:, model_name:, id: article.id)
 
-        expect(result.dig(:fieldData, :name)).to eq 'Updated article title'
+        expect(result.dig(:fieldData, :name)).to eq(title)
       end
     end
   end

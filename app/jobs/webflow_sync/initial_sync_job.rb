@@ -7,7 +7,8 @@ module WebflowSync
       model_class.where(webflow_item_id: nil).find_each do |record|
         next if record.webflow_site_id.blank?
 
-        client(record.webflow_site_id).create_item(record, collection_slug)
+        collection_id = client(record.webflow_site_id).find_collection_id(collection_slug:)
+        client(record.webflow_site_id).create_item(collection_id:, record:)
       end
     end
 
@@ -17,7 +18,7 @@ module WebflowSync
         if @client&.site_id == site_id
           @client
         else
-          @client = WebflowSync::Api.new(site_id)
+          @client = WebflowSync::Api.new(site_id:)
         end
       end
   end

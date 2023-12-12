@@ -4,34 +4,32 @@ http_interactions:
     method: get
     uri: https://api.webflow.com/v2/sites/<WEBFLOW_SITE_ID>/collections
     body:
-      encoding: UTF-8
+      encoding: US-ASCII
       string: ''
     headers:
-      Authorization:
-      - Bearer <WEBFLOW_API_TOKEN>
       Accept:
       - application/json
       Content-Type:
       - application/json
-      Connection:
-      - close
-      Host:
-      - api.webflow.com
+      Authorization:
+      - Bearer <WEBFLOW_API_TOKEN>
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       User-Agent:
-      - http.rb/5.1.1
+      - Ruby
   response:
     status:
       code: 200
       message: OK
     headers:
       Date:
-      - Tue, 24 Oct 2023 20:27:59 GMT
+      - Wed, 06 Dec 2023 04:35:57 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
       - '377'
       Connection:
-      - close
+      - keep-alive
       Etag:
       - W/"179-Ob+JKqqmWqqZ3y2SzFH9qGm3VNc"
       Retry-After:
@@ -41,11 +39,11 @@ http_interactions:
       X-Ratelimit-Remaining:
       - '59'
       X-Response-Time:
-      - 55.057ms
+      - 405.825ms
     body:
       encoding: UTF-8
       string: '{"collections":[{"id":"653816abb6e95dab52f53077","displayName":"Articles","singularName":"Article","slug":"articles","createdOn":"2023-10-24T19:10:35.092Z","lastUpdated":"2023-10-24T19:10:35.260Z"},{"id":"653818838961b39ddebe0641","displayName":"Stories","singularName":"Story","slug":"stories","createdOn":"2023-10-24T19:18:27.801Z","lastUpdated":"2023-10-24T19:18:27.978Z"}]}'
-  recorded_at: Tue, 24 Oct 2023 20:27:56 GMT
+  recorded_at: Wed, 06 Dec 2023 04:35:56 GMT
 - request:
     method: post
     uri: https://api.webflow.com/v2/collections/653816abb6e95dab52f53077/items
@@ -53,79 +51,75 @@ http_interactions:
       encoding: UTF-8
       string: '{"isArchived":false,"isDraft":false,"fieldData":{"name":"MyString"}}'
     headers:
-      Authorization:
-      - Bearer <WEBFLOW_API_TOKEN>
       Accept:
       - application/json
       Content-Type:
       - application/json
-      Connection:
-      - close
-      Host:
-      - api.webflow.com
+      Authorization:
+      - Bearer <WEBFLOW_API_TOKEN>
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       User-Agent:
-      - http.rb/5.1.1
+      - Ruby
   response:
     status:
       code: 202
       message: Accepted
     headers:
       Date:
-      - Tue, 24 Oct 2023 20:28:00 GMT
+      - Wed, 06 Dec 2023 04:35:58 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
-      - '266'
+      - '260'
       Connection:
-      - close
+      - keep-alive
       Etag:
-      - W/"10a-HhLUGCEGCbGcUHLhTGQpb9SMtH4"
+      - W/"104-m24j38frInIlnKig/6WMY8KzGzA"
       Retry-After:
-      - '60'
+      - '59'
       X-Ratelimit-Limit:
       - '60'
       X-Ratelimit-Remaining:
       - '58'
       X-Response-Time:
-      - 382.480ms
+      - 483.688ms
     body:
       encoding: UTF-8
-      string: '{"id":"653828d0a28415d5b97b53cc","cmsLocaleId":"653816aa76146f23a78743c8","lastPublished":null,"lastUpdated":"2023-10-24T20:28:00.313Z","createdOn":"2023-10-24T20:28:00.313Z","isArchived":false,"isDraft":false,"fieldData":{"name":"MyString","slug":"mystring-d1810"}}'
-  recorded_at: Tue, 24 Oct 2023 20:27:57 GMT
+      string: '{"id":"656ffa2dddb10e6282ce013d","cmsLocaleId":"653816aa76146f23a78743c8","lastPublished":null,"lastUpdated":"2023-12-06T04:35:57.875Z","createdOn":"2023-12-06T04:35:57.875Z","isArchived":false,"isDraft":false,"fieldData":{"name":"MyString","slug":"mystring"}}'
+  recorded_at: Wed, 06 Dec 2023 04:35:57 GMT
 - request:
     method: post
     uri: https://api.webflow.com/v2/collections/653816abb6e95dab52f53077/items/publish
     body:
       encoding: UTF-8
-      string: '{"itemIds":["653828d0a28415d5b97b53cc"]}'
+      string: '{"itemIds":["656ffa2dddb10e6282ce013d"]}'
     headers:
-      Authorization:
-      - Bearer <WEBFLOW_API_TOKEN>
       Accept:
       - application/json
       Content-Type:
       - application/json
-      Connection:
-      - close
-      Host:
-      - api.webflow.com
+      Authorization:
+      - Bearer <WEBFLOW_API_TOKEN>
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       User-Agent:
-      - http.rb/5.1.1
+      - Ruby
   response:
     status:
       code: 202
       message: Accepted
     headers:
       Date:
-      - Tue, 24 Oct 2023 20:28:01 GMT
+      - Wed, 06 Dec 2023 04:35:59 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
       - '61'
       Connection:
-      - close
+      - keep-alive
       Etag:
-      - W/"3d-nXr2zPMox9xV1dbYdVn+m2SAVPs"
+      - W/"3d-OpXmmKNmPdgQ95V6QKAF6GFwTTw"
       Retry-After:
       - '59'
       X-Ratelimit-Limit:
@@ -133,45 +127,43 @@ http_interactions:
       X-Ratelimit-Remaining:
       - '57'
       X-Response-Time:
-      - 259.912ms
+      - 732.754ms
     body:
       encoding: UTF-8
-      string: '{"publishedItemIds":["653828d0a28415d5b97b53cc"],"errors":[]}'
-  recorded_at: Tue, 24 Oct 2023 20:27:58 GMT
+      string: '{"publishedItemIds":["656ffa2dddb10e6282ce013d"],"errors":[]}'
+  recorded_at: Wed, 06 Dec 2023 04:35:58 GMT
 - request:
     method: get
-    uri: https://api.webflow.com/v2/sites/<WEBFLOW_SITE_ID>/collections
+    uri: https://api.webflow.com/v2/collections/653816abb6e95dab52f53077/items/656ffa2dddb10e6282ce013d
     body:
-      encoding: UTF-8
+      encoding: US-ASCII
       string: ''
     headers:
-      Authorization:
-      - Bearer <WEBFLOW_API_TOKEN>
       Accept:
       - application/json
       Content-Type:
       - application/json
-      Connection:
-      - close
-      Host:
-      - api.webflow.com
+      Authorization:
+      - Bearer <WEBFLOW_API_TOKEN>
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       User-Agent:
-      - http.rb/5.1.1
+      - Ruby
   response:
     status:
       code: 200
       message: OK
     headers:
       Date:
-      - Tue, 24 Oct 2023 20:28:02 GMT
+      - Wed, 06 Dec 2023 04:35:59 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
-      - '377'
+      - '282'
       Connection:
-      - close
+      - keep-alive
       Etag:
-      - W/"179-Ob+JKqqmWqqZ3y2SzFH9qGm3VNc"
+      - W/"11a-kdru8qXDSBGXGs1MSz0DW/KI1wo"
       Retry-After:
       - '57'
       X-Ratelimit-Limit:
@@ -179,55 +171,9 @@ http_interactions:
       X-Ratelimit-Remaining:
       - '56'
       X-Response-Time:
-      - 243.306ms
+      - 40.464ms
     body:
       encoding: UTF-8
-      string: '{"collections":[{"id":"653816abb6e95dab52f53077","displayName":"Articles","singularName":"Article","slug":"articles","createdOn":"2023-10-24T19:10:35.092Z","lastUpdated":"2023-10-24T19:10:35.260Z"},{"id":"653818838961b39ddebe0641","displayName":"Stories","singularName":"Story","slug":"stories","createdOn":"2023-10-24T19:18:27.801Z","lastUpdated":"2023-10-24T19:18:27.978Z"}]}'
-  recorded_at: Tue, 24 Oct 2023 20:27:59 GMT
-- request:
-    method: get
-    uri: https://api.webflow.com/v2/collections/653816abb6e95dab52f53077/items/653828d0a28415d5b97b53cc
-    body:
-      encoding: UTF-8
-      string: ''
-    headers:
-      Authorization:
-      - Bearer <WEBFLOW_API_TOKEN>
-      Accept:
-      - application/json
-      Content-Type:
-      - application/json
-      Connection:
-      - close
-      Host:
-      - api.webflow.com
-      User-Agent:
-      - http.rb/5.1.1
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Date:
-      - Tue, 24 Oct 2023 20:28:03 GMT
-      Content-Type:
-      - application/json; charset=utf-8
-      Content-Length:
-      - '288'
-      Connection:
-      - close
-      Etag:
-      - W/"120-BrfvL20WQuaT25zIfTr/U1JFKMA"
-      Retry-After:
-      - '56'
-      X-Ratelimit-Limit:
-      - '60'
-      X-Ratelimit-Remaining:
-      - '55'
-      X-Response-Time:
-      - 320.891ms
-    body:
-      encoding: UTF-8
-      string: '{"id":"653828d0a28415d5b97b53cc","cmsLocaleId":"653816aa76146f23a78743c8","lastPublished":"2023-10-24T20:28:01.375Z","lastUpdated":"2023-10-24T20:28:01.375Z","createdOn":"2023-10-24T20:28:00.313Z","isArchived":false,"isDraft":false,"fieldData":{"name":"MyString","slug":"mystring-d1810"}}'
-  recorded_at: Tue, 24 Oct 2023 20:28:00 GMT
+      string: '{"id":"656ffa2dddb10e6282ce013d","cmsLocaleId":"653816aa76146f23a78743c8","lastPublished":"2023-12-06T04:35:59.022Z","lastUpdated":"2023-12-06T04:35:59.022Z","createdOn":"2023-12-06T04:35:57.875Z","isArchived":false,"isDraft":false,"fieldData":{"name":"MyString","slug":"mystring"}}'
+  recorded_at: Wed, 06 Dec 2023 04:35:59 GMT
 recorded_with: VCR 6.1.0

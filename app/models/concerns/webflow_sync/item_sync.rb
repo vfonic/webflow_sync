@@ -23,13 +23,16 @@ module WebflowSync
       #   end
       # end
       #
-      def webflow_site_id
-        WebflowSync.configuration.webflow_site_id
-      end
+      def webflow_site_id = WebflowSync.configuration.webflow_site_id
 
       # override this method in your model to match the collection slug in Webflow
-      def webflow_collection_slug
-        self.model_name.collection.underscore.dasherize
+      def webflow_collection_slug = self.model_name.collection.underscore.dasherize
+
+      # override this method in your model to match the collection id in Webflow
+      # overriding this method is optional, but it will save you a Webflow API call!
+      def webflow_collection_id
+        @webflow_collection_id ||= WebflowSync::Api.new(site_id: self.webflow_site_id)
+                                                   .find_collection_id(collection_slug: self.webflow_collection_slug)
       end
 
       # You can customize this to your liking:
@@ -41,9 +44,7 @@ module WebflowSync
       #     image: self.image_url
       #   }
       # end
-      def as_webflow_json
-        self.as_json
-      end
+      def as_webflow_json = self.as_json
     end
   end
 end

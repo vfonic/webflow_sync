@@ -2,11 +2,7 @@
 
 module WebflowSync
   class UpdateItemJob < ApplicationJob
-    # WebFlow collection slug should be in plural form.
-    # For collections that have spaces in their name, WebFlow sets slug by replacing space for "-".
-    # 'JobListing'.underscore.dasherize.pluralize => 'job-listings'
-    # 'job_listing'.underscore.dasherize.pluralize => 'job-listings'
-    def perform(model_name, id, collection_slug = model_name.underscore.dasherize.pluralize)
+    def perform(collection_id:, model_name:, id:)
       return if WebflowSync.configuration.skip_webflow_sync
 
       model_class = model_name.underscore.classify.constantize
@@ -14,9 +10,9 @@ module WebflowSync
       return if record.blank?
       return if record.skip_webflow_sync
       return if record.webflow_site_id.blank?
-      return WebflowSync::CreateItemJob.perform_later(model_name, id, collection_slug) if record.webflow_item_id.blank?
+      return WebflowSync::CreateItemJob.perform_later(collection_id:, model_name:, id:) if record.webflow_item_id.blank?
 
-      WebflowSync::Api.new(record.webflow_site_id).update_item(record, collection_slug)
+      WebflowSync::Api.new(site_id: record.webflow_site_id).update_item(collection_id:, record:)
     end
   end
 end

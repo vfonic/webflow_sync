@@ -4,90 +4,48 @@ module WebflowSync
   class Api
     attr_reader :site_id
 
-    def initialize(site_id = nil)
+    def initialize(site_id: nil)
       @site_id = site_id
     end
 
-    def get_all_items(collection_slug:, page_limit: 100) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-      collection_id = find_webflow_collection(collection_slug).fetch(:id)
-      max_items_per_page = [page_limit, 100].min
-      first_page_number = 1
+    def get_all_items(collection_id:) = make_request(:list_all_items, collection_id)
 
-      result = make_request(:paginate_items, collection_id, page: first_page_number, per_page: max_items_per_page)
-      puts "Get all items from WebFlow for #{collection_slug} page: #{first_page_number}"
+    def get_item(collection_id:, webflow_item_id:) = make_request(:get_item, collection_id, webflow_item_id)
 
-      total_items = result.dig(:pagination, :total)
-      total_pages = (total_items.to_f / max_items_per_page).ceil
-      items = result.fetch(:items)
+    def create_item(collection_id:, record:)
+      response = make_request(:create_item, collection_id, record.as_webflow_json)
 
-      (2..total_pages).each do |page_number|
-        next_page_items = make_request(:paginate_items, collection_id, page: page_number, per_page: max_items_per_page).fetch(:items)
-        puts "Get all items from WebFlow for #{collection_slug} page: #{page_number}"
-
-        items.concat next_page_items
+      unless update_record_columns(record, response)
+        raise "Failed to store webflow_item_id: '#{response.fetch(:id)}' after creating item in WebFlow collection #{record.inspect}"
       end
 
-      items
-    end
-
-    def get_item(collection_slug, webflow_item_id)
-      collection = find_webflow_collection(collection_slug)
-
-      make_request(:item, collection.fetch(:id), webflow_item_id)
-    end
-
-    def create_item(record, collection_slug)
-      collection = find_webflow_collection(collection_slug)
-      response = make_request(:create_item, collection.fetch(:id), record.as_webflow_json, publish: true)
-
-      if update_record_columns(record, response)
-        puts "Created #{record.inspect} in #{collection_slug}"
-        response
-      else
-        raise "Failed to store webflow_item_id: '#{response.fetch(:id)}' " \
-              "after creating item in WebFlow collection #{record.inspect}"
-      end
-    end
-
-    def update_item(record, collection_slug)
-      collection = find_webflow_collection(collection_slug)
-      response = make_request(:update_item, collection.fetch(:id), record.webflow_item_id, record.as_webflow_json, publish: true)
-      puts "Updated #{record.inspect} in #{collection_slug}"
       response
     end
 
-    def delete_item(collection_slug, webflow_item_id)
-      collection = find_webflow_collection(collection_slug)
-      response = make_request(:delete_item, collection.fetch(:id), webflow_item_id)
-      puts "Deleted #{webflow_item_id} from #{collection_slug}"
-      response
-    end
+    def update_item(collection_id:, record:) = make_request(:update_item, collection_id, record.webflow_item_id, record.as_webflow_json)
 
-    def publish
-      response = make_request(:publish, site_id)
+    def delete_item(collection_id:, webflow_item_id:) = make_request(:delete_item, collection_id, webflow_item_id)
 
-      puts "Publish all domains for Webflow site with id: #{site_id}"
-      response
-    end
+    def publish = make_request(:publish, site_id)
 
     def sites = make_request(:sites)
-    def self.sites = new.sites
+    def self.sites = self.new.sites
+
+    def collections
+      @collections ||= make_request(:collections, site_id)
+    end
+
+    def find_collection_id(collection_slug:)
+      response = collections.find { |collection| collection.fetch(:slug) == collection_slug }
+      raise "Cannot find collection #{collection_slug} for Webflow site #{site_id}" unless response
+
+      response.fetch(:id)
+    end
 
     private
 
       def client
-        @client ||= ::Webflow::Client.new
-      end
-
-      def collections
-        @collections ||= make_request(:collections, site_id)
-      end
-
-      def find_webflow_collection(collection_slug)
-        response = collections.find { |collection| collection.fetch(:slug) == collection_slug }
-        raise "Cannot find collection #{collection_slug} for Webflow site #{site_id}" unless response
-
-        response
+        @client ||= Webflow::Client.new
       end
 
       def update_record_columns(record, response)
