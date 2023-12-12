@@ -14,7 +14,7 @@ GIT
 PATH
   remote: .
   specs:
-    webflow_sync (7.0.0)
+    webflow_sync (8.0.0)
       rails (>= 5.0)
       webflow-rb
 

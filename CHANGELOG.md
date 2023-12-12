@@ -1,3 +1,23 @@
+# 8.0.0
+
+- `WebflowSync::Api` rewrite.
+- `webflow_sync` gem (this gem) now uses `webflow-rb` gem instead of `webflow-ruby` gem. This change was made to be able to use the latest version of `webflow-rb` gem which is actively maintained. It also supports Webflow API v2 and you no longer need to specify both `webflow_sync` and `webflow-ruby` gems in your Gemfile.
+
+Before:
+
+```ruby
+gem 'webflow-ruby', github: 'vfonic/webflow-ruby', branch: 'api-v2'
+gem 'webflow_sync'
+```
+
+After:
+
+```ruby
+gem 'webflow_sync'
+```
+
+- Refactor `WebflowSync` job classes: `WebflowSync::CreateItemJob`, `WebflowSync::UpdateItemJob`, `WebflowSync::DeleteItemJob` to use `collection_id` as a keyword argument as opposed to `collection_slug` as positional argument. When upgrading the gem, if you're not directly calling these jobs, you don't need to do anything. The gem will still use `collection_slug` to get the `collection_id`.
+
 # 7.0.0
 
 - Always check `WebflowSync.configuration.skip_webflow_sync` and `record.skip_webflow_sync` before syncing a record.
