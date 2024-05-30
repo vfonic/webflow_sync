@@ -30,12 +30,10 @@ module WebflowSync
         WebflowSync::DestroyItemJob.perform_later(collection_id: self.webflow_collection_id, webflow_site_id:, webflow_item_id:)
       end
 
-      private
-
-        def should_skip_webflow_sync?
-          WebflowSync.configuration.skip_webflow_sync || self.skip_webflow_sync ||
-            self.webflow_site_id.blank? || self.webflow_collection_id.blank?
-        end
+      def should_skip_webflow_sync?
+        WebflowSync.configuration.skip_webflow_sync || self.skip_webflow_sync ||
+          self.webflow_site_id.blank? || self.webflow_collection_id.blank?
+      end
     end
   end
 end
