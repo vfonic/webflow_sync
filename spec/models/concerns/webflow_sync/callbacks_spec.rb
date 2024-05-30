@@ -54,7 +54,7 @@ RSpec.describe WebflowSync::Callbacks do
 
     context "when it shouldn't skip Webflow sync", vcr: { cassette_name: 'webflow_sync/should_skip_webflow_sync' } do
       it 'returns false' do
-        expect(article.send(:should_skip_webflow_sync?)).to be false
+        expect(article.should_skip_webflow_sync?).to be false
       end
     end
 
@@ -64,7 +64,7 @@ RSpec.describe WebflowSync::Callbacks do
       end
 
       it 'returns true' do
-        expect(article.send(:should_skip_webflow_sync?)).to be true
+        expect(article.should_skip_webflow_sync?).to be true
       end
     end
 
@@ -78,7 +78,7 @@ RSpec.describe WebflowSync::Callbacks do
       end
 
       it 'returns true' do
-        expect(article.send(:should_skip_webflow_sync?)).to be true
+        expect(article.should_skip_webflow_sync?).to be true
       end
     end
 
@@ -90,7 +90,7 @@ RSpec.describe WebflowSync::Callbacks do
       end
 
       it 'returns true' do
-        expect(article.send(:should_skip_webflow_sync?)).to be true
+        expect(article.should_skip_webflow_sync?).to be true
       end
     end
 
@@ -102,7 +102,7 @@ RSpec.describe WebflowSync::Callbacks do
       end
 
       it 'returns true' do
-        expect(article.send(:should_skip_webflow_sync?)).to be true
+        expect(article.should_skip_webflow_sync?).to be true
       end
     end
   end
