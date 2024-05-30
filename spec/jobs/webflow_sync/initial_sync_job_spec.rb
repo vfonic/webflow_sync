@@ -8,7 +8,14 @@ RSpec.describe WebflowSync::InitialSyncJob do
   end
 
   before(:each) do
+    @skip_webflow_sync = WebflowSync.configuration.skip_webflow_sync
+    WebflowSync.configuration.skip_webflow_sync = false
+
     allow(Webflow::Client).to receive(:new).and_return(webflow_mock_client)
+  end
+
+  after(:each) do
+    WebflowSync.configuration.skip_webflow_sync = @skip_webflow_sync # rubocop:disable RSpec/InstanceVariable
   end
 
   it 'assigns webflow_item_id to record' do
@@ -25,7 +32,10 @@ RSpec.describe WebflowSync::InitialSyncJob do
     end
 
     it 'raises an error when it cannot find a webflow collection' do
+      WebflowSync.configuration.skip_webflow_sync = true
       create(:article)
+      WebflowSync.configuration.skip_webflow_sync = false
+
       error_message = "Cannot find collection articles for Webflow site #{ENV.fetch('WEBFLOW_SITE_ID')}"
 
       expect do

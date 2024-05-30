@@ -5,7 +5,7 @@ module WebflowSync
     def perform(collection_slug)
       model_class = collection_slug.underscore.classify.constantize
       model_class.where(webflow_item_id: nil).find_each do |record|
-        next if record.webflow_site_id.blank?
+        next if record.should_skip_webflow_sync?
 
         client(record.webflow_site_id).create_item(collection_id: record.webflow_collection_id, record:)
       end
