@@ -31,11 +31,13 @@ RSpec.describe WebflowSync::InitialSyncJob do
       instance_double(Webflow::Client, collections: [])
     end
 
-    it 'raises an error when it cannot find a webflow collection' do
+    before(:each) do
       WebflowSync.configuration.skip_webflow_sync = true
       create(:article)
       WebflowSync.configuration.skip_webflow_sync = false
+    end
 
+    it 'raises an error when it cannot find a webflow collection' do
       error_message = "Cannot find collection articles for Webflow site #{ENV.fetch('WEBFLOW_SITE_ID')}"
 
       expect do
