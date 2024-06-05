@@ -1,3 +1,8 @@
+# 9.0.0
+
+- Security gems versions updates
+- Update `WebflowSync::InitialSyncJob` to use new `should_skip_webflow_sync?` and `webflow_collection_id` methods
+
 # 8.0.0
 
 - `WebflowSync::Api` rewrite.
