@@ -234,7 +234,7 @@ bundle exec rake
 
 ## Thanks and Credits
 
-Thank you to [holden](https://github.com/holden) and [aedificator-nl](https://github.com/aedificator-nl) for contributing to this gem.
+Thank you to [@holden](https://github.com/holden) and [@aedificator-nl](https://github.com/aedificator-nl) for contributing to this gem.
 
 This gem wouldn't be possible without the amazing work of [webflow-ruby](https://github.com/penseo/webflow-ruby) gem. Thank you, [@phoet](https://github.com/phoet)!
 
